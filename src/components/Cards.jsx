@@ -27,7 +27,13 @@ export default function Cards(props) {
             src={props.image}
             alt={props.name}
           />
-          <div className="px-12">
+          <div
+            className={`px-12 ${
+              props.name.includes("\n")
+                ? "translate-y-[-30px]"
+                : "translate-y-[-15px]"
+            }`}
+          >
             <p className="font-semibold text-center text-2xl w-10/12 m-auto">
               {props.name}
             </p>
