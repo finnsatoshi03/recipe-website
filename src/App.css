@@ -21,15 +21,26 @@ body {
 .container {
   margin: 0 2rem;
 }
-
 @media (min-width: 768px) {
   .container {
     margin: 0 4rem;
   }
 }
-
 @media (min-width: 1024px) {
   .container {
     margin: 0 10rem;
   }
 }
+
+.card-container:hover p {
+  color: #f3f3f5;
+}
+
+.card-container:hover .line,
+.card-container:hover .img-bg {
+  background-color: #f3f3f5;
+}
+
+/* .card-container:hover .img-bg {
+  background-color: #f3f3f5;
+} */
