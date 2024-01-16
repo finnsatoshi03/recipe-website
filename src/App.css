@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  background-color: #f3f3f5;
+}
+
+.container {
+  margin: 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    margin: 0 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin: 0 10rem;
+  }
+}
