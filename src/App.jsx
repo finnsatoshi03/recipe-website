@@ -11,7 +11,7 @@ export default function App() {
         header="Halo-Halong Bliss in Every Dish"
         description="Discover culinary joy at Tito Zah's Kitchen. Add, search, and enjoy recipes for breakfast, lunch, meryenda, and dinner with ease."
       />
-      <div className="container flex justify-between my-10">
+      <div className="container flex flex-wrap justify-center gap-20 my-10 lg:justify-between md:justify-around sm:justify-around">
         <Cards
           image={"images/champurado.png"}
           name={"Champurado"}
