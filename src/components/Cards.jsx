@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import RecipeContent from "../pages/RecipeContent";
 
 export default function Cards(props) {
   const [isHovered, setIsHovered] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   return (
     <>
@@ -16,6 +18,7 @@ export default function Cards(props) {
           }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setShowContent(true)}
         >
           <img
             className={`flex justify-center m-auto relative top-[-60px] ${
@@ -74,6 +77,9 @@ export default function Cards(props) {
           </div>
         </div>
       </section>
+      {showContent && (
+        <RecipeContent showModal={showContent} setShowModal={setShowContent} />
+      )}
     </>
   );
 }
