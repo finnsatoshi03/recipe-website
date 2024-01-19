@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import FilterCards from "./FilterCards";
@@ -30,10 +31,11 @@ const FilterCardsData = [
   },
 ];
 
-export default function RecipesHeader({ setSelectedCard }) {
+export default function RecipesHeader({ setSelectedCard, setSearchInput }) {
   const [selectedCard, setSelectedCardLocal] = useState(
     FilterCardsData[0].category
   );
+  const [search, setSearch] = useState("");
 
   const isTablet = useMediaQuery({ query: "(max-width: 638px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
@@ -42,6 +44,11 @@ export default function RecipesHeader({ setSelectedCard }) {
     console.log("handleCardClick called with category:", category);
     setSelectedCardLocal(category);
     setSelectedCard(category);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+    setSearchInput(event.target.value);
   };
 
   return (
@@ -61,6 +68,8 @@ export default function RecipesHeader({ setSelectedCard }) {
             type="text"
             placeholder="Search recipes..."
             className="border-2 border-gray bg-white h-10 px-5 pr-16 rounded-[3rem] text-sm focus:outline-none w-full"
+            value={search}
+            onChange={handleSearchChange}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"

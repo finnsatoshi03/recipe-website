@@ -106,6 +106,7 @@ export default function Recipes() {
   const [selectedCard, setSelectedCard] = useState(FilterCardsData[0].category);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedSort, setSelectedSort] = useState("ascend");
+  const [searchInput, setSearchInput] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -172,10 +173,16 @@ export default function Recipes() {
     <div className="container sm:m-auto">
       {isDesktopOrLaptop ? (
         <div className="flex justify-between items-center">
-          <Header setSelectedCard={setSelectedCard} />
+          <Header
+            setSelectedCard={setSelectedCard}
+            setSearchInput={setSearchInput}
+          />
         </div>
       ) : (
-        <Header setSelectedCard={setSelectedCard} />
+        <Header
+          setSelectedCard={setSelectedCard}
+          setSearchInput={setSearchInput}
+        />
       )}
       <div className="md:hidden my-10">
         <Slider {...settings}>
@@ -224,7 +231,10 @@ export default function Recipes() {
       {/* Cards */}
       <div className="flex flex-wrap justify-between gap-20 my-24">
         {CardsData.filter(
-          (card) => selectedCard === "All" || card.meal === selectedCard
+          (card) =>
+            (selectedCard === "All" || card.meal === selectedCard) &&
+            (card.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+              card.meal.toLowerCase().includes(searchInput.toLowerCase()))
         )
           .sort((a, b) => {
             if (selectedFilters.includes("Calories")) {
