@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Header from "../components/RecipesHeader";
+import FilterCards from "../components/FilterCards";
+import Filters from "../components/Filters";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import FilterCards from "../components/FilterCards";
+import { useMediaQuery } from "react-responsive";
 
 const FilterCardsData = [
   {
@@ -33,71 +36,87 @@ const FilterCardsData = [
   },
 ];
 
-const settings = {
-  dots: false,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  initialSlide: 0,
-  responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 2.7,
-        slidesToScroll: 1,
-        infinite: true,
-      },
-    },
-  ],
-};
+const FiltersData = [
+  {
+    filter: "Calories",
+  },
+  {
+    filter: "Difficulty",
+  },
+];
 
 export default function Recipes() {
   const [selectedCard, setSelectedCard] = useState(FilterCardsData[0].name);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: windowWidth / 185,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: windowWidth / 185,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: windowWidth / 185,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: windowWidth / 185,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
 
   const handleCardClick = (name) => {
     setSelectedCard(name);
   };
 
+  const handleFilterClick = (filter) => {
+    setSelectedFilters((prevFilters) => {
+      if (prevFilters.includes(filter)) {
+        return prevFilters.filter((f) => f !== filter);
+      } else {
+        return [...prevFilters, filter];
+      }
+    });
+  };
+
+  const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1536px)" });
+
   return (
-    <div className="container xl:m-auto lg:m-auto md:m-auto sm:m-auto">
-      {/* Hero */}
-      <h1 className="font-serif text-black text-3xl leading-none mb-4 xl:text-6xl lg:text-6xl md:text-5xl sm:text-4xl">
-        Welcome to
-        <br />
-        Tito Zah&apos;s Kitchen
-      </h1>
-      {/* Search */}
-      <div className="relative w-1/2">
-        <input
-          type="text"
-          placeholder="Search recipes..."
-          className="border-2 border-gray bg-white h-10 px-5 pr-16 rounded-[3rem] text-sm focus:outline-none w-full"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-2.5 right-4 h-5 w-5 text-gray-500"
-          viewBox="0 0 50 50"
-        >
-          <path d="M 21 3 C 11.622998 3 4 10.623005 4 20 C 4 29.376995 11.622998 37 21 37 C 24.712383 37 28.139151 35.791079 30.9375 33.765625 L 44.085938 46.914062 L 46.914062 44.085938 L 33.886719 31.058594 C 36.443536 28.083 38 24.223631 38 20 C 38 10.623005 30.377002 3 21 3 z M 21 5 C 29.296122 5 36 11.703883 36 20 C 36 28.296117 29.296122 35 21 35 C 12.703878 35 6 28.296117 6 20 C 6 11.703883 12.703878 5 21 5 z"></path>
-        </svg>
-      </div>
-      {/* Filter Cards */}
-      <div className="hidden sm:block">
-        <div className="flex gap-5 my-10">
-          {FilterCardsData.map((card, index) => (
-            <FilterCards
-              key={index}
-              image={card.images}
-              name={card.name}
-              category={card.category}
-              selected={card.name === selectedCard}
-              onClick={() => handleCardClick(card.name)}
-            />
-          ))}
+    <div className="container sm:m-auto">
+      {isDesktopOrLaptop ? (
+        <div className="flex justify-between items-center">
+          <Header />
         </div>
-      </div>
-      <div className="sm:hidden">
+      ) : (
+        <Header />
+      )}
+      <div className="md:hidden my-10">
         <Slider {...settings}>
           {FilterCardsData.map((card, index) => (
             <div key={index}>
@@ -113,10 +132,19 @@ export default function Recipes() {
         </Slider>
       </div>
       {/* Header Filter */}
-      <div>
-        <h2 className="font-serif text-black text-lg leading-none mb-4 xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
+      <div className="flex items-center">
+        <h2 className="font-serif text-black text-lg leading-none mb-4 xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl mr-10">
           All Items
         </h2>
+        {FiltersData.map((filter, index) => (
+          <div className="mr-4" key={index}>
+            <Filters
+              filter={filter.filter}
+              selected={selectedFilters.includes(filter.filter)}
+              onClick={() => handleFilterClick(filter.filter)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

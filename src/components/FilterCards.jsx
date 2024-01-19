@@ -2,7 +2,7 @@
 export default function FilterCards(props) {
   return (
     <div
-      className={`flex flex-col h-40 w-36 items-center justify-around py-4 px-6 rounded-t-[3rem] rounded-b-[3rem] hover:cursor-pointer ${
+      className={`flex flex-col h-40 w-36 items-center justify-around py-4 px-6 rounded-t-[3rem] rounded-b-[3rem] transition-all duration-300 ease-in-out hover:cursor-pointer ${
         props.selected ? "bg-green" : "bg-gray200"
       }`}
       onClick={props.onClick}
