@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
-import SignUp from "../pages/SignUp";
+import SignUp from "./SignUp";
 
 export default function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +78,7 @@ export default function Navigation(props) {
       {isOpen && (
         <div
           ref={navRef}
-          className="fixed flex flex-col text-white200 text-sm right-0 top-0 h-full w-64 bg-green-500 p-4 bg-green rounded-tl-2xl rounded-bl-2xl z-10 py-8 px-7"
+          className="fixed flex flex-col text-white200 text-sm right-0 top-0 h-full w-64 bg-green-500 p-4 bg-green rounded-tl-2xl rounded-bl-2xl z-20 py-8 px-7"
         >
           <div className="flex justify-between items-center gap-5 ">
             <img

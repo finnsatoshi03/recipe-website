@@ -43,7 +43,7 @@ export default function App() {
           meal={"Dinner"}
         />
         <img
-          className="absolute bottom-[-7rem] right-[-10rem] xl:h-[30rem] lg:h-[25rem] md:h-[23rem] sm:h-[20rem] h-[15rem] "
+          className="absolute bottom-[-4.5rem] right-[-10rem] xl:h-[22rem] lg:h-[22rem] md:h-[20rem] sm:h-[17rem] h-[15rem] "
           src="images/chopping-board.png"
           alt="Chopping Board"
         />
@@ -63,7 +63,7 @@ export default function App() {
           alt="3pcs Onions"
         />
         <img
-          className="absolute translate-y-[5rem] left-[-3rem] xl:h-[20rem] lg:h-[20rem] h-40 rotate-[190deg]"
+          className="absolute translate-y-0 left-[-3rem] xl:h-[17rem] lg:h-[17rem] h-40 rotate-[190deg]"
           src="images/kangkong.png"
           alt="Kang-kong Leaves"
         />
