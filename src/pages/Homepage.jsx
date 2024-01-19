@@ -1,44 +1,69 @@
+import { useEffect } from "react";
 import Hero from "../components/Header";
 import Cards from "../components/Cards";
 
+const CardData = [
+  {
+    image: "images/champurado.png",
+    name: "Champurado",
+    calories: "224.2",
+    servings: "4",
+    meal: "Breakfast",
+  },
+  {
+    image: "images/sisig.png",
+    name: "Pork Sisig",
+    calories: "945.5",
+    servings: "4",
+    meal: "Lunch",
+  },
+  {
+    image: "images/bilo-bilo.png",
+    name: "Ginataang Bilo-bilo",
+    calories: "400",
+    servings: "4",
+    meal: "Merienda",
+  },
+  {
+    image: "images/menudo.png",
+    name: "Pork Menudo",
+    calories: "450",
+    servings: "4",
+    meal: "Dinner",
+  },
+];
+
 export default function Homepage() {
+  useEffect(() => {
+    const checkOverflow = () => {
+      document.body.style.overflowY =
+        window.innerWidth > 1530 ? "hidden" : "auto";
+    };
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => {
+      document.body.style.overflowY = "auto";
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, []);
+
   return (
     <>
-      {/* Landing Page */}
       <Hero
         header="Halo-Halong Bliss in Every Dish"
         description="Discover culinary joy at Tito Zah's Kitchen. Add, search, and enjoy recipes for breakfast, lunch, meryenda, and dinner with ease."
       />
-      {/* Recipe Cards */}
       <div className="container flex flex-wrap justify-center gap-20 my-10 lg:justify-between md:justify-around sm:justify-around m-auto">
-        <Cards
-          image={"images/champurado.png"}
-          name={"Champurado"}
-          calories={"224.2"}
-          servings={"4"}
-          meal={"Breakfast"}
-        />
-        <Cards
-          image={"images/sisig.png"}
-          name={"Pork Sisig"}
-          calories={"945.5"}
-          servings={"4"}
-          meal={"Lunch"}
-        />
-        <Cards
-          image={"images/bilo-bilo.png"}
-          name={"Ginataang Bilo-bilo"}
-          calories={"400"}
-          servings={"4"}
-          meal={"Merienda"}
-        />
-        <Cards
-          image={"images/menudo.png"}
-          name={"Pork Menudo"}
-          calories={"450"}
-          servings={"4"}
-          meal={"Dinner"}
-        />
+        {CardData.map((card, index) => (
+          <Cards
+            key={index}
+            image={card.image}
+            name={card.name}
+            calories={card.calories}
+            servings={card.servings}
+            meal={card.meal}
+          />
+        ))}
         <img
           className="absolute bottom-[-4.5rem] right-[-10rem] xl:h-[22rem] lg:h-[22rem] md:h-[20rem] sm:h-[17rem] h-[15rem] "
           src="images/chopping-board.png"
