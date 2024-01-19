@@ -53,6 +53,7 @@ const CardsData = [
     calories: 300,
     serving: 1,
     meal: "Breakfast",
+    difficulty: "Medium",
   },
   {
     image: "images/tapsilog.png",
@@ -60,6 +61,7 @@ const CardsData = [
     calories: 500,
     serving: 1,
     meal: "Breakfast",
+    difficulty: "Medium",
   },
   {
     image: "images/sinigang.png",
@@ -67,6 +69,7 @@ const CardsData = [
     calories: 400,
     serving: 1,
     meal: "Lunch",
+    difficulty: "Medium",
   },
   {
     image: "images/bilo-bilo.png",
@@ -74,6 +77,7 @@ const CardsData = [
     calories: 200,
     serving: 1,
     meal: "Merienda",
+    difficulty: "Hard",
   },
   {
     image: "images/pork-bistek.png",
@@ -81,12 +85,27 @@ const CardsData = [
     calories: 600,
     serving: 1,
     meal: "Dinner",
+    difficulty: "Easy",
   },
 ];
+
+const difficultyToInt = (difficulty) => {
+  switch (difficulty) {
+    case "Easy":
+      return 1;
+    case "Medium":
+      return 2;
+    case "Hard":
+      return 3;
+    default:
+      return 0;
+  }
+};
 
 export default function Recipes() {
   const [selectedCard, setSelectedCard] = useState(FilterCardsData[0].category);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedSort, setSelectedSort] = useState("ascend");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -136,13 +155,15 @@ export default function Recipes() {
   };
 
   const handleFilterClick = (filter) => {
-    setSelectedFilters((prevFilters) => {
-      if (prevFilters.includes(filter)) {
-        return prevFilters.filter((f) => f !== filter);
-      } else {
-        return [...prevFilters, filter];
-      }
-    });
+    setSelectedFilters(filter);
+  };
+
+  const handleSortClick = () => {
+    if (selectedFilters) {
+      setSelectedSort((prevSort) =>
+        prevSort === "ascend" ? "descend" : "ascend"
+      );
+    }
   };
 
   const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1536px)" });
@@ -172,34 +193,61 @@ export default function Recipes() {
         </Slider>
       </div>
       {/* Header Filter */}
-      <div className="flex items-center">
-        <h2 className="font-serif text-black text-lg leading-none xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl mr-10">
-          All Items
-        </h2>
-        {FiltersData.map((filter, index) => (
-          <div className="mr-4 self-end" key={index}>
-            <Filters
-              filter={filter.filter}
-              selected={selectedFilters.includes(filter.filter)}
-              onClick={() => handleFilterClick(filter.filter)}
-            />
-          </div>
-        ))}
+      <div className="flex items-center w-1/2 justify-between">
+        <div className="flex">
+          <h2 className="font-serif text-black text-lg leading-none xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl mr-10">
+            All Items
+          </h2>
+          {FiltersData.map((filter, index) => (
+            <div className="mr-4 self-end" key={index}>
+              <Filters
+                filter={filter.filter}
+                selected={selectedFilters.includes(filter.filter)}
+                onClick={() => handleFilterClick(filter.filter)}
+              />
+            </div>
+          ))}
+        </div>
+        <img
+          className="self-end hover:cursor-pointer 2xl:translate-x-[-18rem] xl:translate-x-[-13rem] lg:translate-x-[-7rem] md:translate-x-[-2rem]"
+          width="24"
+          height="24"
+          src={
+            selectedSort === "ascend"
+              ? "https://img.icons8.com/fluency-systems-regular/48/607917/generic-sorting.png"
+              : "https://img.icons8.com/fluency-systems-regular/48/607917/sort-amount-up-reversed.png"
+          }
+          alt="generic-sorting"
+          onClick={handleSortClick}
+        />
       </div>
       {/* Cards */}
       <div className="flex flex-wrap justify-between gap-20 my-24">
         {CardsData.filter(
           (card) => selectedCard === "All" || card.meal === selectedCard
-        ).map((card, index) => (
-          <Cards
-            key={index}
-            image={card.image}
-            name={card.name}
-            calories={card.calories}
-            serving={card.serving}
-            meal={card.meal}
-          />
-        ))}
+        )
+          .sort((a, b) => {
+            if (selectedFilters.includes("Calories")) {
+              return selectedSort === "descend"
+                ? a.calories - b.calories
+                : b.calories - a.calories;
+            } else if (selectedFilters.includes("Difficulty")) {
+              return selectedSort === "descend"
+                ? difficultyToInt(a.difficulty) - difficultyToInt(b.difficulty)
+                : difficultyToInt(b.difficulty) - difficultyToInt(a.difficulty);
+            }
+            return 0;
+          })
+          .map((card, index) => (
+            <Cards
+              key={index}
+              image={card.image}
+              name={card.name}
+              calories={card.calories}
+              serving={card.serving}
+              meal={card.meal}
+            />
+          ))}
       </div>
     </div>
   );
