@@ -30,14 +30,18 @@ const FilterCardsData = [
   },
 ];
 
-export default function RecipesHeader() {
-  const [selectedCard, setSelectedCard] = useState(FilterCardsData[0].name);
+export default function RecipesHeader({ setSelectedCard }) {
+  const [selectedCard, setSelectedCardLocal] = useState(
+    FilterCardsData[0].category
+  );
 
   const isTablet = useMediaQuery({ query: "(max-width: 638px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
 
-  const handleCardClick = (name) => {
-    setSelectedCard(name);
+  const handleCardClick = (category) => {
+    console.log("handleCardClick called with category:", category);
+    setSelectedCardLocal(category);
+    setSelectedCard(category);
   };
 
   return (
@@ -76,8 +80,8 @@ export default function RecipesHeader() {
               image={card.images}
               name={card.name}
               category={card.category}
-              selected={card.name === selectedCard}
-              onClick={() => handleCardClick(card.name)}
+              selected={card.category === selectedCard}
+              onClick={() => handleCardClick(card.category)}
             />
           ))}
         </div>

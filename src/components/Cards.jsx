@@ -18,12 +18,18 @@ export default function Cards(props) {
           onMouseLeave={() => setIsHovered(false)}
         >
           <img
-            className="flex justify-center m-auto relative top-[-60px] rounded-full xl:h-40 xl:w-40 lg:w-40 lg:h-40 md:w-36 md:h-36 sm:w-32 sm:h-32 w-28 h-28"
-            style={{
-              boxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
-              WebkitBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
-              MozBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
-            }}
+            className={`flex justify-center m-auto relative top-[-60px] ${
+              props.image.includes("pork-bistek.png") ? "" : "rounded-full"
+            } xl:h-40 xl:w-40 lg:w-40 lg:h-40 md:w-36 md:h-36 sm:w-32 sm:h-32 w-28 h-28`}
+            style={
+              props.image.includes("pork-bistek.png")
+                ? {}
+                : {
+                    boxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
+                    WebkitBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
+                    MozBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
+                  }
+            }
             src={props.image}
             alt={props.name}
           />

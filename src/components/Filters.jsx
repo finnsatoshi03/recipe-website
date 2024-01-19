@@ -8,7 +8,7 @@ export default function Filters(props) {
       onClick={props.onClick}
     >
       <p
-        className={`font-light text-sm ${
+        className={`font-light lg:text-sm text-[11px] ${
           props.selected ? "text-white200 font-medium" : "text-gray"
         }`}
       >
