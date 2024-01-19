@@ -16,6 +16,13 @@ ul {
 
 body {
   background-color: #f3f3f5;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1531px) {
+  body {
+    overflow-y: hidden;
+  }
 }
 
 .container {

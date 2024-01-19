@@ -1,12 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
+import SignUp from "../pages/SignUp";
 
 export default function Navigation(props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const navRef = useRef();
 
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSignUpClick = () => {
+    setIsSignUpOpen(true);
+  };
+
+  const handleSignUpClose = () => {
+    setIsSignUpOpen(false);
   };
 
   useEffect(() => {
@@ -24,14 +34,17 @@ export default function Navigation(props) {
 
   return (
     <>
-      <div className="container flex justify-between py-6 items-center font-sans text-black">
+      <div className="container flex justify-between py-6 items-center font-sans text-black m-auto">
         <p className="hidden sm:flex">{props.userStatus || "Guest"}</p>
         <div className="items-center lg:gap-24 md:gap-12 sm:gap-6 absolute left-1/2 transform -translate-x-1/2 hidden sm:flex">
           <a href="#">Recipes</a>
           <img className="w-16" src="images/logo.png" alt="Tito Zah's Logo" />
           <a href="#">Contact</a>
         </div>
-        <div className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex">
+        <div
+          className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray"
+          onClick={handleSignUpClick}
+        >
           <img
             width="28"
             height="28"
@@ -42,7 +55,7 @@ export default function Navigation(props) {
             Sign Up
           </a>
         </div>
-        <div className="flex justify-between items-center w-full sm:hidden m-auto">
+        <div className="container flex justify-between items-center w-full sm:hidden">
           <img
             className="w-14 sm:hidden"
             src={`${!isOpen ? "images/logo.png" : "images/alt-logo.png"}`}
@@ -55,7 +68,7 @@ export default function Navigation(props) {
             width="30"
             height="30"
             viewBox="0 0 24 24"
-            className="sm:hidden hover:cursor-pointer mr-[3rem]"
+            className="sm:hidden hover:cursor-pointer"
             onClick={handleMenuClick}
           >
             <path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"></path>
@@ -83,7 +96,10 @@ export default function Navigation(props) {
             Contact
           </a>
           <div className="flex justify-center m-auto mt-4 w-full h-[1px] bg-white200 mb-5 opacity-50"></div>
-          <div className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 flex justify-center hover:cursor-pointer">
+          <div
+            className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 flex justify-center hover:cursor-pointer"
+            onClick={handleSignUpClick}
+          >
             <img
               width="28"
               height="28"
@@ -95,6 +111,9 @@ export default function Navigation(props) {
             </a>
           </div>
         </div>
+      )}
+      {isSignUpOpen && (
+        <SignUp isOpen={isSignUpOpen} onClose={handleSignUpClose} />
       )}
     </>
   );

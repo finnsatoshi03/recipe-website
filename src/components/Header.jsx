@@ -6,7 +6,7 @@ export default function Header(props) {
   return (
     <>
       <header>
-        <div className="container flex-col justify-center items-center py-12">
+        <div className="container flex-col justify-center items-center py-12 m-auto">
           <h1 className="font-serif text-black text-3xl leading-none text-center mb-4 xl:text-[5rem] lg:text-6xl md:text-5xl sm:text-4xl">
             {headerLines.map((line, index) => (
               <React.Fragment key={index}>

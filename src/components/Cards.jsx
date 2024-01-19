@@ -8,7 +8,7 @@ export default function Cards(props) {
     <>
       <section>
         <div
-          className="card-container bg-white rounded-3xl hover:bg-green hover:cursor-pointer transition duration-500 ease-in-out xl:w-80 xl:h-96 lg:w-72 lg:h-80 md:w-64 md:h-72 sm:w-60 sm:h-64 w-56 h-60"
+          className="card-container relative bg-white200 rounded-3xl  hover:bg-green hover:cursor-pointer transition duration-500 ease-in-out xl:w-80 xl:h-96 lg:w-72 lg:h-80 md:w-64 md:h-72 sm:w-60 sm:h-64 w-56 h-60 z-10 "
           style={{
             boxShadow: "10px 10px 57px 2px rgba(0,0,0,0.23)",
             WebkitBoxShadow: "10px 10px 57px 2px rgba(0,0,0,0.23)",
