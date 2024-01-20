@@ -6,7 +6,8 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
   const [isHovered, setIsHovered] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-
+  const totalTime = props.prepTime + props.cookTime;
+  
   return (
     <>
       <section>
@@ -55,7 +56,7 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
                         MozBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
                       }
                 }
-                src={props.image}
+                src={`${props.image}.png`}
                 alt={props.name}
               />
               <div
@@ -108,25 +109,11 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
           showModal={showContent}
           setShowModal={setShowContent}
           isHomePage={isHomePage}
-          image={props.image}
+          image={props.image}          
+          totalTime={totalTime}
+          ingredients={props.ingredients}
+          directions={props.directions} 
           {...props}
-          totalTime={60}
-          ingredients={[
-            "1/2 kilo pork belly, sliced into strips",
-            "1/2 cup soy sauce",
-            "1/4 cup calamansi juice",
-            "1/4 cup brown sugar",
-            "1/2 cup water",
-            "1/2 cup onions, sliced into rings",
-            "1/2 cup cooking oil",
-          ]}
-          directions={[
-            "Marinate the meat",
-            "Brown the meat",
-            "Simmer the adobo",
-            "Adjust the flavors",
-            "Serve",
-          ]} // uncomment kapag may content na
         />
       )}
     </>
