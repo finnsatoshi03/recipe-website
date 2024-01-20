@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useCallback, useState } from "react";
 
-export default function RecipeContent({ showModal, setShowModal }) {
+export default function RecipeContent({ showModal, setShowModal, isHomePage }) {
   const modalRef = useRef();
-  const [modalSize, setModalSize] = useState(50); // Start at half size
-  const [isFullSize, setIsFullSize] = useState(false);
+  const [modalSize, setModalSize] = useState(isHomePage ? 100 : 50);
+  const [isFullSize, setIsFullSize] = useState(isHomePage);
 
   const closeModal = useCallback(() => {
     setShowModal(false);
@@ -46,6 +46,7 @@ export default function RecipeContent({ showModal, setShowModal }) {
             className="modal bg-black bg-opacity-50 w-full h-full absolute flex items-center justify-center"
             onClick={closeModal}
           >
+            {/* Modal Content */}
             <div
               ref={modalRef}
               className="modal-content bg-white200 rounded-lg transition-all duration-500"
@@ -58,7 +59,7 @@ export default function RecipeContent({ showModal, setShowModal }) {
             >
               <h2>Modal Content</h2>
               <p>This is the content of the modal.</p>
-              <button onClick={closeModal} className="translate-y-[rem]">
+              <button onClick={closeModal} className="translate-y-[100rem]">
                 Close Modal
               </button>
             </div>

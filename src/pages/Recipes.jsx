@@ -156,7 +156,13 @@ export default function Recipes() {
   };
 
   const handleFilterClick = (filter) => {
-    setSelectedFilters(filter);
+    setSelectedFilters((prevFilters) => {
+      if (prevFilters.includes(filter)) {
+        return prevFilters.filter((f) => f !== filter);
+      } else {
+        return [filter];
+      }
+    });
   };
 
   const handleSortClick = () => {
@@ -229,7 +235,7 @@ export default function Recipes() {
         />
       </div>
       {/* Cards */}
-      <div className="flex flex-wrap justify-between gap-20 my-24">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">
         {CardsData.filter(
           (card) =>
             (selectedCard === "All" || card.meal === selectedCard) &&

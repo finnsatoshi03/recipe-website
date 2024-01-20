@@ -63,3 +63,7 @@ body {
 /* .card-container:hover .img-bg {
   background-color: #f3f3f5;
 } */
+
+.element {
+  clip-path: polygon(100% 3%, 26% 80%, 100% 100%);
+}

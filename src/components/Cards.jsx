@@ -2,7 +2,7 @@
 import { useState } from "react";
 import RecipeContent from "../pages/RecipeContent";
 
-export default function Cards(props) {
+export default function Cards({ isHomePage, ...props }) {
   const [isHovered, setIsHovered] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
@@ -78,7 +78,11 @@ export default function Cards(props) {
         </div>
       </section>
       {showContent && (
-        <RecipeContent showModal={showContent} setShowModal={setShowContent} />
+        <RecipeContent
+          showModal={showContent}
+          setShowModal={setShowContent}
+          isHomePage={isHomePage}
+        />
       )}
     </>
   );

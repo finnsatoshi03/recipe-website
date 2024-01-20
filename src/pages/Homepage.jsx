@@ -62,6 +62,7 @@ export default function Homepage() {
             calories={card.calories}
             servings={card.servings}
             meal={card.meal}
+            isHomePage={true}
           />
         ))}
         <img
