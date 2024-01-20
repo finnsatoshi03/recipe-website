@@ -82,6 +82,8 @@ export default function Cards({ isHomePage, ...props }) {
           showModal={showContent}
           setShowModal={setShowContent}
           isHomePage={isHomePage}
+          image={props.image}
+          {...props}
           ingredients={[
             "1/2 kilo pork belly, sliced into strips",
             "1/2 cup soy sauce",
@@ -97,7 +99,7 @@ export default function Cards({ isHomePage, ...props }) {
             "Simmer the adobo",
             "Adjust the flavors",
             "Serve",
-          ]}
+          ]} // uncomment kapag may content na
         />
       )}
     </>
