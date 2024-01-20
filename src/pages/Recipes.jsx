@@ -8,6 +8,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useMediaQuery } from "react-responsive";
+import _ from 'lodash';
+import { RecipeServices } from "../services/recipes";
 
 const FilterCardsData = [
   {
@@ -108,13 +110,24 @@ export default function Recipes() {
   const [selectedSort, setSelectedSort] = useState("ascend");
   const [searchInput, setSearchInput] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [recipes, setRecipes] = useState([]);
 
+  const fetchRecipes = async () => {
+    const data = await RecipeServices.viewAllRecipe()
+    console.log(data);
+    // setRecipes(data)
+  }
+  const debounce = _.debounce(fetchRecipes, 500);
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      debounce()
+    }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+    
   }, []);
-
+  
   const settings = {
     dots: false,
     infinite: false,
