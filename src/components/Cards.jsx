@@ -82,6 +82,22 @@ export default function Cards({ isHomePage, ...props }) {
           showModal={showContent}
           setShowModal={setShowContent}
           isHomePage={isHomePage}
+          ingredients={[
+            "1/2 kilo pork belly, sliced into strips",
+            "1/2 cup soy sauce",
+            "1/4 cup calamansi juice",
+            "1/4 cup brown sugar",
+            "1/2 cup water",
+            "1/2 cup onions, sliced into rings",
+            "1/2 cup cooking oil",
+          ]}
+          directions={[
+            "Marinate the meat",
+            "Brown the meat",
+            "Simmer the adobo",
+            "Adjust the flavors",
+            "Serve",
+          ]}
         />
       )}
     </>
