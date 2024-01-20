@@ -15,6 +15,8 @@ export default function App() {
     autoLogin().then((res) => {
       saveLoggedInUser(res.data.id, res.data.username);
       handleOnLogin();
+    }).catch((err) => {
+      console.log(err.response.status)
     });
   } ,[])
 
