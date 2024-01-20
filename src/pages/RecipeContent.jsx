@@ -19,7 +19,7 @@ export default function RecipeContent({ showModal, setShowModal, isHomePage }) {
       100
     );
     setModalSize(scrollPercent);
-    setIsFullSize(scrollPercent === 100);
+    setIsFullSize(scrollPercent >= 99.5 && scrollPercent <= 100);
   };
 
   useEffect(() => {
@@ -37,6 +37,8 @@ export default function RecipeContent({ showModal, setShowModal, isHomePage }) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [closeModal]);
+  console.log(modalSize);
+  console.log(isFullSize);
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function RecipeContent({ showModal, setShowModal, isHomePage }) {
             {/* Modal Content */}
             <div
               ref={modalRef}
-              className="modal-content bg-white200 rounded-lg transition-all duration-500"
+              className="modal-content bg-white200 rounded-lg transition-all duration-500 relative overflow-x-hidden"
               style={{
                 width: `${modalSize}%`,
                 height: `${modalSize}%`,
@@ -57,8 +59,17 @@ export default function RecipeContent({ showModal, setShowModal, isHomePage }) {
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h2>Modal Content</h2>
-              <p>This is the content of the modal.</p>
+              <img
+                className={`${
+                  isFullSize ? "fixed" : "absolute"
+                } xl:right-0 lg:right-[-5rem] md:right-[-10rem] sm:right-[-11rem] right-[-10rem] transition-all duration-500 h-full`}
+                src="images/side-element.png"
+                alt="Side Element"
+              />
+              <div className="mx-20 my-14">
+                <h2>Modal Content</h2>
+                <p>This is the content of the modal.</p>
+              </div>
               <button onClick={closeModal} className="translate-y-[100rem]">
                 Close Modal
               </button>
