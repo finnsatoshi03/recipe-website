@@ -1,12 +1,36 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
+import { login, saveLoggedInUser } from "../services/authService";
 
-const SignIn = ({ isOpen, onClose }) => {
+const SignIn = ({ isOpen, onClose, onLogin }) => {
   const modalRef = useRef();
   const [isLogin, setIsLogin] = useState(false);
 
-  const handleSignIn = () => {
-    // Handle sign in logic here
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      // handle login
+      login(username, password)
+        .then((res) => {
+          console.log(res.data);
+          saveLoggedInUser(res.data.id, res.data.username);
+          onLogin();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+
+      onClose();
+    } else {
+      // handle register
+      console.log("register");
+      setIsLogin(true);
+    }
   };
 
   useEffect(() => {
@@ -45,24 +69,30 @@ const SignIn = ({ isOpen, onClose }) => {
               ? "Sign in to Tito Zah's Kitchen to continue your culinary journey."
               : "Join Tito Zah's Kitchen to unlock a world of culinary creativity. Sign up now to add, share, and savor delicious recipes for every mealtime delight."}
           </p>
-          <form className="my-4" onSubmit={handleSignIn}>
+          <form className="my-4" onSubmit={handleFormSubmit}>
             {/* Form fields */}
             {!isLogin && (
               <input
                 className="w-full p-2 rounded-lg mb-2 text-sm"
                 type="text"
                 placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
               />
             )}
             <input
               className="w-full p-2 rounded-lg mb-2 text-sm"
               type="text"
               placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
             />
             <input
               className="w-full p-2 rounded-lg mb-2 text-sm"
               type="password"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             <button
               type="submit"
