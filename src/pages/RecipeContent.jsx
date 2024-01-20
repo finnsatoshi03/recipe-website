@@ -129,7 +129,29 @@ export default function RecipeContent({
                     name={"Servings"}
                   />
                   <RecipeHeadNotes
-                    amount={props.totalTime || "2"}
+                    amount={
+                      props.totalTime >= 60 ? (
+                        <>
+                          {props.totalTime / 60}
+                          <span
+                            style={{ fontSize: "0.5em", fontWeight: "lighter" }}
+                          >
+                            {" "}
+                            hrs
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          {props.totalTime}
+                          <span
+                            style={{ fontSize: "0.5em", fontWeight: "lighter" }}
+                          >
+                            {" "}
+                            mins
+                          </span>
+                        </>
+                      )
+                    }
                     name={"Time"}
                   />
                 </div>
