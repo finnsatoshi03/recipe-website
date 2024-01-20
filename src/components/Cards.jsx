@@ -29,13 +29,14 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
             <div className="flex flex-col items-center h-full">
               <div className="flex justify-center items-center hover:cursor-pointer h-5/6 w-full bg-gray200 bg-opacity-50 rounded-t-3xl">
                 <img
+                  className="lg:h-32 lg:w-32 md:h-28 md:w-28 sm:h-24 sm:w-24 h-20 w-20"
                   width="130"
                   height="130"
                   src={"images/add.png"}
                   alt="plus"
                 />
               </div>
-              <h1 className="text-green text-xl h-1/6 flex items-center">
+              <h1 className="text-green md:text-xl sm:text-lg text-md h-1/6 flex items-center">
                 Add Recipe
               </h1>
             </div>
