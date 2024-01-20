@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { login, saveLoggedInUser } from "../services/authService";
+import { RegisterService } from "../services/register";
 
 const SignIn = ({ isOpen, onClose, onLogin }) => {
   const modalRef = useRef();
@@ -10,7 +11,7 @@ const SignIn = ({ isOpen, onClose, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) {
       // handle login
@@ -27,9 +28,34 @@ const SignIn = ({ isOpen, onClose, onLogin }) => {
 
       onClose();
     } else {
-      // handle register
-      console.log("register");
-      setIsLogin(true);
+      
+      try {
+        if (name && username && password) {                 
+          const registerData = {
+            name: name,
+            username: username,
+            password: password,
+          }
+          const data = await RegisterService.register(registerData);          
+          console.log(data);
+          login(data.username, data.password)
+            .then((res) => {
+              console.log(res.data);
+              saveLoggedInUser(res.data.id, res.data.username);
+              onLogin();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          setIsLogin(true);
+          alert(data.msg) /// modal pop up mas better
+        }
+      } catch (error) {
+        console.log(error);
+        alert('try again')
+      }
+      
+     
     }
   };
 

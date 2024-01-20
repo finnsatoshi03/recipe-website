@@ -116,7 +116,7 @@ export default function Recipes({ isLogin = true }) {
 
   const fetchRecipes = async () => {
     const data = await RecipeServices.viewAllRecipe()
-    console.log(data.recipe);
+    // console.log(data.recipe);
    
     setRecipes(data.recipe)
   }
@@ -126,9 +126,10 @@ export default function Recipes({ isLogin = true }) {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      debounce()
+      
     }
     window.addEventListener("resize", handleResize);
+    debounce()
     return () => window.removeEventListener("resize", handleResize);
     
   }, []);

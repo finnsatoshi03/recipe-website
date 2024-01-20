@@ -1,5 +1,6 @@
 import { RecipeAPI } from "./api/recipesAPI";
 
 export const RecipeServices = {
-    viewAllRecipe : () => RecipeAPI.get('/recipes'),
+    viewAllRecipe : () => RecipeAPI.getAllRecipes('/recipes'),
+    getTopPicksRecipe: () => RecipeAPI.getTopPicksRecipes('/recipe/toppicks'),
 }
