@@ -102,7 +102,7 @@ const difficultyToInt = (difficulty) => {
   }
 };
 
-export default function Recipes() {
+export default function Recipes({ isLogin = true }) {
   const [selectedCard, setSelectedCard] = useState(FilterCardsData[0].category);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedSort, setSelectedSort] = useState("ascend");
@@ -236,6 +236,7 @@ export default function Recipes() {
       </div>
       {/* Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">
+        {isLogin && <Cards isCreate={true} />}
         {CardsData.filter(
           (card) =>
             (selectedCard === "All" || card.meal === selectedCard) &&
