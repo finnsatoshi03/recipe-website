@@ -57,7 +57,7 @@ export default function RecipeContent({
             {/* Modal Content */}
             <div
               ref={modalRef}
-              className="modal-content bg-white200 rounded-lg transition-all duration-500 relative overflow-x-hidden"
+              className="modal-content bg-white200 rounded-3xl transition-all duration-500 relative overflow-x-hidden"
               style={{
                 width: `${modalSize}%`,
                 height: `${modalSize}%`,

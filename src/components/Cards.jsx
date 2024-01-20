@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import RecipeContent from "../pages/RecipeContent";
+import CreateRecipe from "../pages/CreateRecipe";
 
 export default function Cards({ isHomePage, isCreate, ...props }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -22,7 +23,7 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => {
-            isCreate ? null : setShowContent(true);
+            isCreate ? setIsCreateModalOpen(true) : setShowContent(true);
           }}
         >
           {isCreate ? (
@@ -127,6 +128,12 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
             "Adjust the flavors",
             "Serve",
           ]} // uncomment kapag may content na
+        />
+      )}
+      {isCreateModalOpen && (
+        <CreateRecipe
+          showModal={isCreateModalOpen}
+          setShowModal={setIsCreateModalOpen}
         />
       )}
     </>
