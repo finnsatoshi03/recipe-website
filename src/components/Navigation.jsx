@@ -18,7 +18,8 @@ export default function Navigation(props) {
     setIsSignUpOpen(true);
   };
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
     const activeUserId = getLoggedInUserId();
     
     userLogout(activeUserId)
