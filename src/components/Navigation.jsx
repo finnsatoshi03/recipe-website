@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
 import SignUp from "./SignUp";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getLoggedInUserId, userLogout } from "../services/authService";
 
 export default function Navigation(props) {
@@ -52,14 +52,35 @@ export default function Navigation(props) {
     };
   }, []);
 
+  const location = useLocation();
+
+  const isContactPage = location.pathname === "/contact-us";
+  useEffect(() => {
+    if (location.pathname === "/contact-us") {
+      document.body.classList.add("bg-black");
+      document.body.classList.remove("bg-white200");
+    } else {
+      document.body.classList.add("bg-white200");
+      document.body.classList.remove("bg-black");
+    }
+  }, [location]);
+
   return (
     <>
-      <div className="container flex justify-between py-6 items-center font-sans text-black m-auto">
+      <div
+        className={`container flex justify-between py-6 items-center font-sans ${
+          isContactPage ? "text-white200 bg-black" : "text-black"
+        } m-auto`}
+      >
         <p className="hidden sm:flex">{activeUser ? activeUser : "Guest"}</p>
         <div className="items-center lg:gap-24 md:gap-12 sm:gap-6 absolute left-1/2 transform -translate-x-1/2 hidden sm:flex">
           <Link to="/recipes">Recipes</Link>
           <Link to="/">
-            <img className="w-16" src="images/logo.png" alt="Tito Zah's Logo" />
+            <img
+              className="w-16"
+              src={isContactPage ? "images/alt-logo.png" : "images/logo.png"}
+              alt="Tito Zah's Logo"
+            />
           </Link>
           <Link to="/contact-us">Contact Us</Link>
         </div>
@@ -74,7 +95,9 @@ export default function Navigation(props) {
           </div>
         ) : (
           <div
-            className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray"
+            className={`${
+              isContactPage ? "bg-white200" : "bg-black"
+            }  px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray`}
             onClick={handleSignUpClick}
           >
             <img
@@ -83,7 +106,12 @@ export default function Navigation(props) {
               src="https://img.icons8.com/doodle/48/user.png"
               alt="user"
             />
-            <a href="#" className="text-white200 text-xs">
+            <a
+              href="#"
+              className={`${
+                isContactPage ? "text-black" : "text-white200"
+              } text-xs`}
+            >
               Sign Up
             </a>
           </div>

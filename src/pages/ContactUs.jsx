@@ -84,7 +84,7 @@ const ContactUs = () => {
     Github:
       "Explore our projects and contributions on GitHub, where we spaghetti codes.",
     Facebook:
-      "Stay connected and updated with us on Facebook, you can message us here.",
+      "Stay connected and feel free to drop us a direct message for a quick chat or inquiries.",
     Twitter:
       "Follow us on Twitter for real-time thoughts, insights, and engaging discussions.",
     LinkedIn:
@@ -119,7 +119,7 @@ const ContactUs = () => {
       history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       contacts: [
         { type: "Github", link: "https://mnuel1.github.io/portfolio/" },
-        { type: "Facebook", link: "https://www.facebook.com/ManuelMarine" },
+        { type: "Facebook", link: "https://m.me/ManuelMarine" },
         // Add more contacts as needed
       ],
     },
@@ -131,7 +131,7 @@ const ContactUs = () => {
       history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       contacts: [
         { type: "Github", link: "https://github.com/finnsatoshi03" },
-        { type: "Facebook", link: "https://www.facebook.com/FabulousEggPie/" },
+        { type: "Facebook", link: "https://m.me/FabulousEggPie/" },
       ],
     },
     {
@@ -143,7 +143,7 @@ const ContactUs = () => {
       contacts: [
         {
           type: "Facebook",
-          link: "https://www.facebook.com/e.billona?mibextid=LQQJ4d",
+          link: "https://m.me/e.billona?mibextid=LQQJ4d",
         },
         { type: "Github", link: "https://github.com/Ezekiele2" },
         // Add more contacts as needed
@@ -161,7 +161,7 @@ const ContactUs = () => {
           type: "LinkedIn",
           link: "https://www.linkedin.com/in/jerry-boy-tejada-87a421283?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         },
-        { type: "Facebook", link: "https://www.facebook.com/JerryboyTejada" },
+        { type: "Facebook", link: "https://m.me/JerryboyTejada" },
         // Add more contacts as needed
       ],
     },
@@ -176,140 +176,125 @@ const ContactUs = () => {
   ];
 
   return (
-    <div style={containerStyle} className="container sm:m-auto mt-10">
-      {mockProfiles.map((profile, index) => (
-        <div key={index}>
-          <div
-            className="w-full h-[24rem] bg-opacity-50 rounded-3xl mb-10 relative"
-            style={{ backgroundColor: "#c0c0c2" }}
-          >
-            <div className="">
-              <img
-                src={`images/${images[index % images.length]}`}
-                className="w-full h-28 bg-green absolute rounded-t-3xl object-cover"
-              />
-              <div className="z-10 absolute">
-                <div
-                  className="w-[120px] h-[120px] bg-white200 rounded-full top-12 left-10 absolute  border-opacity-50 border-4"
-                  style={{ borderColor: "#c0c0c2" }}
-                >
-                  <img
-                    src={profile.image}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
+    <section className=" bg-black text-white200">
+      <div style={containerStyle} className="container sm:m-auto mt-10">
+        <div className="my-10 flex justify-between w-full">
+          <div className="w-full uppercase">
+            <div className="flex items-end justify-between">
+              <div className="flex items-end lg:gap-10 sm:gap-5 gap-7">
+                <h1 className="font-serif xl:text-[10rem] lg:text-[7rem] sm:text-[4rem] text-[3.5rem] xl:leading-[7rem] lg:leading-[5rem] sm:leading-[3rem] leading-[2.5rem]">
+                  Let's
+                </h1>
+                <img
+                  className="lg:w-32 sm:w-24 w-16"
+                  src="images/cat.png"
+                  alt="Cat"
+                />
               </div>
-              <div className="z-10 flex justify-between w-full absolute top-[7.7rem] pr-5 items-center">
-                <div className="relative left-[11rem]">
-                  <h1 className="text-black font-bold text-xl leading-5 sm:w-full w-5/6">
-                    {profile.name}
-                  </h1>
-                  <p className="text-sm opacity-60 ">{profile.credentials}</p>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1 justify-end">
-                    <h2 className="text-xs opacity-60">Current Role</h2>
-                    <img
-                      width="15"
-                      height="15"
-                      src="https://img.icons8.com/material-outlined/24/lawyer.png"
-                      alt="lawyer"
-                    />
-                  </div>
-                  <p className="text-xs font-semibold px-2 py-1 mt-1 rounded-full bg-black bg-opacity-20">
-                    {profile.currentWork}
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 w-full h-full absolute left-10 top-[14rem]">
-                {profile.contacts.map((contact, index) => (
-                  <div
-                    key={index}
-                    className="h-1/3 w-1/4 bg-green bg-opacity-20 rounded-xl py-3 px-5"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <div>{icons[contact.type]}</div>
-                        <h1 className="text-md font-semibold">
-                          {contact.type}
-                        </h1>
-                      </div>
-                      <div className="flex lg:justify-between justify-center items-center">
-                        <p className="text-xs w-2/3 hidden lg:block">
-                          {description[contact.type]}
-                        </p>
-                        <img
-                          className="lg:w-8 lg:h-8 w-12 h-12 hover:cursor-pointer"
-                          src="https://img.icons8.com/ios/50/circled-chevron-right--v1.png"
-                          alt="circled-chevron-right--v1"
-                          onClick={() => window.open(contact.link, "_blank")}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <p className="font-black uppercase tracking-[3px] xl:text-[9.5rem] lg:text-[7rem] sm:text-[4rem] text-[3.5rem] xl:leading-[8rem] lg:leading-[5rem] sm:leading-[3rem] leading-[2.5rem] lg:ml-28">
+                Team
+              </p>
+            </div>
+            <div className="flex items-end justify-between">
+              <h1 className="font-serif xl:text-[10rem] lg:text-[7rem] sm:text-[4rem] text-[3.5rem] xl:leading-[8rem] lg:leading-[5rem] sm:leading-[3rem] leading-[2.5rem] lg:ml-28 sm:ml-20 ml-16 whitespace-nowrap">
+                Get In
+              </h1>
+              <p className="font-black uppercase tracking-[3px] xl:text-[9.5rem] lg:text-[7rem] sm:text-[4rem] text-[3.5rem] xl:leading-[8rem] lg:leading-[5rem] sm:leading-[3rem] leading-[2.5rem] lg:ml-28">
+                Zah
+              </p>
+            </div>
+            <div className="flex justify-between">
+              <h1 className="font-serif xl:text-[10rem] lg:text-[7rem] sm:text-[4rem] text-[3.5rem]  xl:leading-[8rem] lg:leading-[5rem] sm:leading-[3rem] leading-[2.5rem]">
+                Touch
+              </h1>
+              <div className="grid xl:grid-cols-2 grid-rows-2 w-2/6 gap-4 lowercase">
+                <p className="xl:text-xs lg:text-[10px] text-[8px] text-right">
+                  Reach out to us! Whether you're looking for information, want
+                  to explore collaboration opportunities, or just fancy a chat,
+                  our virtual doors are wide open for you. Connect with us, and
+                  let's create something incredible together!
+                </p>
+                <p className="xl:text-xs lg:text-[10px] text-[8px] text-right">
+                  Learn more about the minds behind our projects and discover
+                  the unique expertise each developer contributes to our
+                  collective success.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      ))}
-      <br />
-
-      {/* Modal component */}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Profile Modal"
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-          content: {
-            width: "300px",
-            margin: "auto",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            padding: "20px",
-            backgroundColor: "white",
-            border: "none",
-            outline: "none",
-          },
-        }}
-      >
-        <animated.div style={modalAnimation}>
-          {/* Your modal content */}
-          {selectedProfile && (
-            <>
-              <h2>{selectedProfile.name}'s Profile</h2>
-              <br />
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+        {mockProfiles.map((profile, index) => (
+          <div key={index}>
+            <div className="w-full h-[24rem] rounded-3xl relative mt-10 bg-white200 text-black">
+              <div className="">
                 <img
-                  src={selectedProfile.image}
-                  alt={selectedProfile.name}
-                  style={{ width: "50%", height: "auto", borderRadius: "50%" }}
+                  src={`images/${images[index % images.length]}`}
+                  className="w-full h-28 bg-green absolute rounded-t-3xl object-cover"
                 />
+                <div className="z-10 absolute">
+                  <div className="w-[120px] h-[120px] bg-white200 rounded-full top-12 left-10 absolute  border-opacity-50 border-4 border-white200">
+                    <img
+                      src={profile.image}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                </div>
+                <div className="z-10 flex justify-between w-full absolute top-[7.7rem] pr-5 items-center">
+                  <div className="relative left-[11rem]">
+                    <h1 className="text-black font-bold text-xl leading-5 sm:w-full w-5/6">
+                      {profile.name}
+                    </h1>
+                    <p className="text-sm opacity-60 ">{profile.credentials}</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1 justify-end">
+                      <h2 className="text-xs opacity-60">Current Role</h2>
+                      <img
+                        width="15"
+                        height="15"
+                        src="https://img.icons8.com/material-outlined/24/lawyer.png"
+                        alt="lawyer"
+                      />
+                    </div>
+                    <p className="text-xs font-semibold px-2 py-1 mt-1 rounded-full bg-black bg-opacity-20">
+                      {profile.currentWork}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-4 w-full h-full absolute left-10 top-[14rem]">
+                  {profile.contacts.map((contact, index) => (
+                    <div
+                      key={index}
+                      className="h-1/3 w-1/4 bg-green bg-opacity-20 rounded-xl py-3 px-5"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <div>{icons[contact.type]}</div>
+                          <h1 className="text-md font-semibold">
+                            {contact.type}
+                          </h1>
+                        </div>
+                        <div className="flex lg:justify-between justify-center items-center">
+                          <p className="text-xs w-2/3 hidden lg:block">
+                            {description[contact.type]}
+                          </p>
+                          <img
+                            className="lg:w-8 lg:h-8 w-12 h-12 hover:cursor-pointer"
+                            src="https://img.icons8.com/ios/50/circled-chevron-right--v1.png"
+                            alt="circled-chevron-right--v1"
+                            onClick={() => window.open(contact.link, "_blank")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <br />
-              <p>{selectedProfile.credentials}</p>
-              <p>{selectedProfile.history}</p>
-              <br />
-              <textarea
-                placeholder="Type your message..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-              <button onClick={handleSubmit}>Submit</button>
-            </>
-          )}
-        </animated.div>
-      </Modal>
-    </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 
