@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Hero from "../components/Header";
 import Cards from "../components/Cards";
-import _ from 'lodash';
+import _ from "lodash";
 import { RecipeServices } from "../services/recipes";
 const CardData = [
   {
@@ -38,15 +38,14 @@ export default function Homepage() {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = async () => {
-    const data = await RecipeServices.getTopPicksRecipe()
+    const data = await RecipeServices.getTopPicksRecipe();
     // console.log(data.recipe);
-   
-    setRecipes(data.recipe)
-  }
 
-  
+    setRecipes(data.recipe);
+  };
+
   const debounce = _.debounce(fetchRecipes, 500);
-  
+
   useEffect(() => {
     const checkOverflow = () => {
       document.body.style.overflowY =
@@ -54,12 +53,12 @@ export default function Homepage() {
     };
     checkOverflow();
     window.addEventListener("resize", checkOverflow);
-    debounce()
+    debounce();
     return () => {
       document.body.style.overflowY = "auto";
       window.removeEventListener("resize", checkOverflow);
     };
-  }, []);
+  }, [debounce]);
 
   return (
     <>
