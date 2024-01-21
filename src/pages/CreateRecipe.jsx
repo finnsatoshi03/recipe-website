@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useCallback, useRef, useEffect } from "react";
 import RecipeHeadNotes from "../components/RecipeHeadNotes";
+import { getLoggedInUserId } from "../services/authService";
+import { RecipeServices } from "../services/recipes";
 
 export default function CreateRecipe({ showModal, setShowModal }) {
   const [ingredients, setIngredients] = useState([
@@ -29,6 +31,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
   const [totalUnit, setTotalUnit] = useState("mins");
   const [calories, setCalories] = useState("");
   const [serving, setServing] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const prepInputRef = useRef();
   const cookInputRef = useRef();
 
@@ -122,6 +125,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    setSelectedFile(file);
+
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -133,18 +138,37 @@ export default function CreateRecipe({ showModal, setShowModal }) {
 
   const handleCreate = () => {
     // dito nto connect sa backend
-    console.log({
-      image,
-      title,
-      calories,
-      serving,
-      mealType,
-      prepTime,
-      cookTime,
-      difficulty,
-      ingredients: ingredientInputs,
-      directions: directionInputs,
-    });
+  
+
+    const id = getLoggedInUserId();
+
+    if (id) {
+      const formData = new FormData();
+
+      formData.append("image", "");
+      formData.append("title", title);
+      formData.append("calories", calories);
+      formData.append("serving", serving);
+      formData.append("mealType", mealType);
+      formData.append("prepTime", prepTime);
+      formData.append("cookTime", cookTime);
+      formData.append("difficulty", difficulty);
+      formData.append("ingredients", ingredientInputs);
+      formData.append("directions", directionInputs);
+      formData.append("userId", id);
+      formData.append("file", selectedFile);
+
+      RecipeServices.createRecipe(id, formData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        
+    } else {
+      // HANDLE HERE IF USER IS NOT LOGGED IN
+    }
 
     setShowModal(false);
   };
