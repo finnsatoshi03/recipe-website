@@ -5,7 +5,7 @@ import FilterCards from "./FilterCards";
 
 const FilterCardsData = [
   {
-    images: "images/filipino-food.png",
+    images: "images/ff.png",
     name: "Filipino Foods | All",
     category: "All",
   },
@@ -22,7 +22,7 @@ const FilterCardsData = [
   {
     images: "images/bilo-bilo.png",
     name: "Bilo-bilo | Merienda",
-    category: "Merienda",
+    category: "Meryenda",
   },
   {
     images: "images/pork-bistek.png",
