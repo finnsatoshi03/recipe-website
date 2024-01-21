@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useCallback, useRef, useEffect } from "react";
+import RecipeHeadNotes from "../components/RecipeHeadNotes";
 
 export default function CreateRecipe({ showModal, setShowModal }) {
   const [ingredients, setIngredients] = useState([
@@ -124,7 +125,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
           <div className="modal bg-black bg-opacity-50 w-full h-full absolute flex items-center justify-center">
             {/* Modal Content */}
             <div
-              className="h-[90%] w-[90%] bg-white200 rounded-3xl transition-all duration-500 relative overflow-y-auto"
+              className="h-[90%] w-[90%] bg-white200 rounded-3xl transition-all duration-500 relative overflow-y-auto overflow-x-hidden"
               onClick={stopPropagation}
             >
               {/* Back */}
@@ -137,350 +138,441 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                 onClick={closeModal}
               />
               <div className="py-24 px-32">
-                <h1 className="text-3xl font-light">Create</h1>
-                <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
-                  Recipe
-                </h2>
-                <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
-                  Craft your culinary masterpiece effortlessly by adding your
-                  favorite ingredients, step-by-step instructions, and share the
-                  joy of your unique recipe creation with our community.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  {/* Input forms */}
-                  <form onSubmit={handleCreate}>
-                    <div className="flex flex-col gap-2">
+                <div className="flex xl:flex-row flex-col xl:justify-between">
+                  {/* Left Content */}
+                  <div className="xl:w-2/3 w-full">
+                    <h1 className="text-3xl font-light">Create</h1>
+                    <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
+                      Recipe
+                    </h2>
+                    <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
+                      Craft your culinary masterpiece effortlessly by adding
+                      your favorite ingredients, step-by-step instructions, and
+                      share the joy of your unique recipe creation with our
+                      community.
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      {/* Input forms */}
+                      <form onSubmit={handleCreate}>
+                        <div className="flex flex-col gap-2">
+                          <div
+                            className={`flex items-center gap-4 px-3 py-2 rounded-xl ${
+                              title.length >= 3
+                                ? "bg-gray text-white200"
+                                : "bg-gray200"
+                            }`}
+                          >
+                            <img
+                              width="20"
+                              height="20"
+                              src={
+                                title.length >= 3
+                                  ? "https://img.icons8.com/ios-glyphs/30/f3f3f5/type--v1.png"
+                                  : "https://img.icons8.com/ios-glyphs/30/607917/type--v1.png"
+                              }
+                              alt="type--v1"
+                            />
+                            <label className="text-sm font-sans w-1/3">
+                              Recipe Title:
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Your Sample Title"
+                              className={`${
+                                title.length >= 3 ? "bg-gray" : "bg-gray200"
+                              } outline-none text-sm md:w-[15rem] w-1/2`}
+                              value={title}
+                              onChange={(e) => setTitle(e.target.value)}
+                            />
+                          </div>
+                          <div className="bg-gray200 px-3 py-2 rounded-xl">
+                            <div className="flex items-center gap-4">
+                              <img
+                                width="20"
+                                height="20"
+                                src="https://img.icons8.com/ios-glyphs/30/607917/ingredients--v2.png"
+                                alt="ingredients--v2"
+                              />
+                              <label className="text-sm font-sans">
+                                Ingredients:
+                              </label>
+                            </div>
+                            {ingredients.map((ingredient) => (
+                              <div
+                                className="relative my-1"
+                                key={ingredient.id}
+                              >
+                                <input
+                                  type="text"
+                                  placeholder={ingredient.placeholder}
+                                  className={`${inputStyle} w-full`}
+                                />
+                                {ingredient.id > 2 && (
+                                  <img
+                                    className="absolute right-0 md:h-5 h-4 rotate-45 top-3 cursor-pointer"
+                                    src="images/add.png"
+                                    alt="delete"
+                                    onClick={() =>
+                                      removeIngredient(ingredient.id)
+                                    }
+                                  />
+                                )}
+                              </div>
+                            ))}
+                            <button
+                              onClick={addMore}
+                              className="text-xs bg-gray text-white200 px-2 py-1 mt-2 rounded-lg flex items-center gap-1"
+                            >
+                              <img className="h-4" src="images/add-alt.png" />
+                              Add more
+                            </button>
+                          </div>
+                          <div className="bg-gray200 px-3 py-2 rounded-xl">
+                            <div className="flex items-center gap-4">
+                              <img
+                                width="20"
+                                height="20"
+                                src="https://img.icons8.com/ios-glyphs/30/607917/wakeup-hill-on-stairs.png"
+                                alt="wakeup-hill-on-stairs"
+                              />
+                              <label className="text-sm ">Directions:</label>
+                            </div>
+                            {directions.map((direction) => (
+                              <div className="relative my-1" key={direction.id}>
+                                <input
+                                  type="text"
+                                  placeholder={direction.placeholder}
+                                  className={`${inputStyle} w-full`}
+                                />
+                                {direction.id > 2 && (
+                                  <img
+                                    className="absolute right-0 md:h-5 h-4 rotate-45 top-3 cursor-pointer"
+                                    src="images/add.png"
+                                    alt="delete"
+                                    onClick={() =>
+                                      removeDirection(direction.id)
+                                    }
+                                  />
+                                )}
+                              </div>
+                            ))}
+                            <button
+                              onClick={addMoreDirection}
+                              className="text-xs bg-gray text-white200 px-2 py-1 mt-2 rounded-lg flex items-center gap-1"
+                            >
+                              <img className="h-4" src="images/add-alt.png" />
+                              Add more
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      {/* RecipeHeadNotes */}
+                      <div className="flex flex-col gap-2 md:w-auto w-full">
+                        {/* Calories */}
+                        <div className="flex gap-4 bg-gray200 px-3 py-2 rounded-xl">
+                          <div className="flex items-center gap-4">
+                            <img
+                              width="20"
+                              height="20"
+                              src="https://img.icons8.com/ios-glyphs/30/607917/celery.png"
+                              alt="celery"
+                            />
+                            <label className="text-sm w-1/3">Calories:</label>
+                          </div>
+                          <input
+                            type="number"
+                            placeholder="100"
+                            className={inputStyle}
+                            pattern="\d*"
+                            onInput={(e) => {
+                              e.target.value = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                            }}
+                          />
+                        </div>
+                        {/* Serving */}
+                        <div className="flex gap-4 bg-gray200 px-3 py-2 rounded-xl">
+                          <div className="flex items-center gap-4">
+                            <img
+                              width="20"
+                              height="20"
+                              src="https://img.icons8.com/material-sharp/24/607917/tableware.png"
+                              alt="tableware"
+                            />
+                            <label className="text-sm">Serving:</label>
+                          </div>
+                          <input
+                            type="number"
+                            placeholder="3"
+                            className={inputStyle}
+                            pattern="\d*"
+                            onInput={(e) => {
+                              e.target.value = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                            }}
+                          />
+                        </div>
+                        {/* HeadNotes */}
+                        <div className="flex flex-col gap-4 bg-gray200 rounded-xl px-3 py-2">
+                          {/* Difficulty */}
+                          <div className="flex sm:flex-row flex-col md:gap-4 gap-1 md:items-center items-start">
+                            <div className="flex items-center gap-4">
+                              <img
+                                width="20"
+                                height="20"
+                                src="https://img.icons8.com/ios-glyphs/30/607917/tasks--v1.png"
+                                alt="tasks--v1"
+                              />
+                              <label className="text-sm">Difficulty:</label>
+                            </div>
+                            <div className="flex flex-wrap gap-2 sm:ml-0 ml-8">
+                              <p
+                                className={`text-xs py-1 px-2 ${
+                                  difficulty === "" || difficulty === "Easy"
+                                    ? "bg-green200"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() =>
+                                  setDifficulty(
+                                    difficulty === "Easy" ? "" : "Easy"
+                                  )
+                                }
+                              >
+                                Easy
+                              </p>
+                              <p
+                                className={`text-xs py-1 px-2 ${
+                                  difficulty === "" || difficulty === "Medium"
+                                    ? "bg-yellow"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() =>
+                                  setDifficulty(
+                                    difficulty === "Medium" ? "" : "Medium"
+                                  )
+                                }
+                              >
+                                Medium
+                              </p>
+                              <p
+                                className={`text-xs py-1 px-2 ${
+                                  difficulty === "" || difficulty === "Hard"
+                                    ? "bg-red"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() =>
+                                  setDifficulty(
+                                    difficulty === "Hard" ? "" : "Hard"
+                                  )
+                                }
+                              >
+                                Hard
+                              </p>
+                            </div>
+                          </div>
+                          {/* Meal Type */}
+                          <div className="flex sm:flex-row flex-col md:gap-4 gap-1 md:items-center items-start">
+                            <div className="flex items-center gap-4">
+                              <img
+                                width="24"
+                                height="24"
+                                src="https://img.icons8.com/ios-glyphs/30/607917/meal.png"
+                                alt="meal"
+                              />
+                              <label className="text-sm">Meal:</label>
+                            </div>
+                            <div className="flex flex-wrap gap-2 sm:ml-0 ml-8">
+                              <p
+                                className={`text-xs px-2 py-1 ${
+                                  mealType === "" || mealType === "Breakfast"
+                                    ? "bg-green"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() => toggleMealType("Breakfast")}
+                              >
+                                Breakfast
+                              </p>
+                              <p
+                                className={`text-xs px-2 py-1 ${
+                                  mealType.length === 0 ||
+                                  mealType.includes("Lunch")
+                                    ? "bg-green"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() => toggleMealType("Lunch")}
+                              >
+                                Lunch
+                              </p>
+                              <p
+                                className={`text-xs px-2 py-1 ${
+                                  mealType === "" || mealType === "Merienda"
+                                    ? "bg-green"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() => toggleMealType("Merienda")}
+                              >
+                                Merienda
+                              </p>
+                              <p
+                                className={`text-xs px-2 py-1 ${
+                                  mealType.length === 0 ||
+                                  mealType.includes("Dinner")
+                                    ? "bg-green"
+                                    : "bg-gray opacity-40"
+                                } rounded-lg hover:cursor-pointer bg-opacity-50`}
+                                onClick={() => toggleMealType("Dinner")}
+                              >
+                                Dinner
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {/* Total Time */}
+                        <div className="flex flex-col bg-gray200 rounded-xl px-3 py-2">
+                          <div className="flex items-center gap-4 mb-2">
+                            <img
+                              width="20"
+                              height="20"
+                              src="https://img.icons8.com/ios-glyphs/30/607917/delivery-time.png"
+                              alt="delivery-time"
+                            />
+                            <div className="flex items-center gap-2">
+                              <label className="text-sm">Total Time:</label>
+                              <p className="text-sm font-bold">
+                                {totalTime.toFixed(2)}
+                              </p>
+                              <p className="text-xs">{totalUnit}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4 ml-9">
+                            <label className="text-sm">Preparation:</label>
+                            <input
+                              type="number"
+                              placeholder="30"
+                              className={`${inputStyle} text-gray`}
+                              pattern="\d*"
+                              ref={prepInputRef}
+                              onInput={(e) => {
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
+                              }}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  e,
+                                  setPrepTime,
+                                  setPrepUnit,
+                                  prepInputRef
+                                )
+                              }
+                            />
+                            <p className="text-xs">{prepUnit}.</p>
+                          </div>
+                          <div className="flex items-center gap-4 ml-9">
+                            <label className="text-sm">Cooking:</label>
+                            <input
+                              type="number"
+                              placeholder="30"
+                              className={`${inputStyle} text-gray`}
+                              pattern="\d*"
+                              ref={cookInputRef}
+                              onInput={(e) => {
+                                e.target.value = e.target.value.replace(
+                                  /[^0-9]/g,
+                                  ""
+                                );
+                              }}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  e,
+                                  setCookTime,
+                                  setCookUnit,
+                                  cookInputRef
+                                )
+                              }
+                            />
+                            <p className="text-xs">{cookUnit}.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Right Content */}
+                  <div className="hidden xl:block absolute right-0 top-0 h-full w-1/3 bg-gray200 rounded-3xl">
+                    <div className="mx-28 my-20">
                       <div
-                        className={`flex items-center gap-4 px-3 py-2 rounded-xl ${
-                          title.length >= 3
-                            ? "bg-gray text-white200"
-                            : "bg-gray200"
+                        className={`inline-flex py-1 px-2 rounded-lg bg-opacity-50 ${
+                          difficulty === "Easy"
+                            ? "bg-green200"
+                            : difficulty === "Medium"
+                            ? "bg-yellow"
+                            : difficulty === "Hard"
+                            ? "bg-red"
+                            : "bg-green200"
                         }`}
                       >
-                        <img
-                          width="20"
-                          height="20"
-                          src={
-                            title.length >= 3
-                              ? "https://img.icons8.com/ios-glyphs/30/f3f3f5/type--v1.png"
-                              : "https://img.icons8.com/ios-glyphs/30/607917/type--v1.png"
-                          }
-                          alt="type--v1"
+                        <p className="italic text-xs">{difficulty || "Easy"}</p>
+                      </div>
+                      <h2 className="text-[2.5rem] font-serif font-bold leading-9">
+                        {title || "Sample Title"}
+                      </h2>
+                      <h3>{mealType || "Meal Type"}</h3>
+                      <div className="flex flex-wrap w-2/3 gap-2">
+                        <RecipeHeadNotes
+                          amount={"100"}
+                          name={"Calories"}
+                          inCreate={true}
                         />
-                        <label className="text-sm font-sans w-1/3">
-                          Recipe Title:
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="Your Sample Title"
-                          className={`${
-                            title.length >= 3 ? "bg-gray" : "bg-gray200"
-                          } outline-none text-sm md:w-[15rem] w-1/2`}
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
+                        <RecipeHeadNotes
+                          amount={"2"}
+                          name={"Servings"}
+                          inCreate={true}
                         />
-                      </div>
-                      <div className="bg-gray200 px-3 py-2 rounded-xl">
-                        <div className="flex items-center gap-4">
-                          <img
-                            width="20"
-                            height="20"
-                            src="https://img.icons8.com/ios-glyphs/30/607917/ingredients--v2.png"
-                            alt="ingredients--v2"
-                          />
-                          <label className="text-sm font-sans">
-                            Ingredients:
-                          </label>
-                        </div>
-                        {ingredients.map((ingredient) => (
-                          <div className="relative my-1" key={ingredient.id}>
-                            <input
-                              type="text"
-                              placeholder={ingredient.placeholder}
-                              className={`${inputStyle} w-full`}
-                            />
-                            {ingredient.id > 2 && (
-                              <img
-                                className="absolute right-0 md:h-5 h-4 rotate-45 top-3 cursor-pointer"
-                                src="images/add.png"
-                                alt="delete"
-                                onClick={() => removeIngredient(ingredient.id)}
-                              />
-                            )}
-                          </div>
-                        ))}
-                        <button
-                          onClick={addMore}
-                          className="text-xs bg-gray text-white200 px-2 py-1 mt-2 rounded-lg flex items-center gap-1"
-                        >
-                          <img className="h-4" src="images/add-alt.png" />
-                          Add more
-                        </button>
-                      </div>
-                      <div className="bg-gray200 px-3 py-2 rounded-xl">
-                        <div className="flex items-center gap-4">
-                          <img
-                            width="20"
-                            height="20"
-                            src="https://img.icons8.com/ios-glyphs/30/607917/wakeup-hill-on-stairs.png"
-                            alt="wakeup-hill-on-stairs"
-                          />
-                          <label className="text-sm ">Directions:</label>
-                        </div>
-                        {directions.map((direction) => (
-                          <div className="relative my-1" key={direction.id}>
-                            <input
-                              type="text"
-                              placeholder={direction.placeholder}
-                              className={`${inputStyle} w-full`}
-                            />
-                            {direction.id > 2 && (
-                              <img
-                                className="absolute right-0 md:h-5 h-4 rotate-45 top-3 cursor-pointer"
-                                src="images/add.png"
-                                alt="delete"
-                                onClick={() => removeDirection(direction.id)}
-                              />
-                            )}
-                          </div>
-                        ))}
-                        <button
-                          onClick={addMoreDirection}
-                          className="text-xs bg-gray text-white200 px-2 py-1 mt-2 rounded-lg flex items-center gap-1"
-                        >
-                          <img className="h-4" src="images/add-alt.png" />
-                          Add more
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  {/* RecipeHeadNotes */}
-                  <div className="flex flex-col gap-2 md:w-auto w-full">
-                    {/* Calories */}
-                    <div className="flex gap-4 bg-gray200 px-3 py-2 rounded-xl">
-                      <div className="flex items-center gap-4">
-                        <img
-                          width="20"
-                          height="20"
-                          src="https://img.icons8.com/ios-glyphs/30/607917/celery.png"
-                          alt="celery"
-                        />
-                        <label className="text-sm w-1/3">Calories:</label>
-                      </div>
-                      <input
-                        type="number"
-                        placeholder="100"
-                        className={inputStyle}
-                        pattern="\d*"
-                        onInput={(e) => {
-                          e.target.value = e.target.value.replace(
-                            /[^0-9]/g,
-                            ""
-                          );
-                        }}
-                      />
-                    </div>
-                    {/* Serving */}
-                    <div className="flex gap-4 bg-gray200 px-3 py-2 rounded-xl">
-                      <div className="flex items-center gap-4">
-                        <img
-                          width="20"
-                          height="20"
-                          src="https://img.icons8.com/material-sharp/24/607917/tableware.png"
-                          alt="tableware"
-                        />
-                        <label className="text-sm">Serving:</label>
-                      </div>
-                      <input
-                        type="number"
-                        placeholder="3"
-                        className={inputStyle}
-                        pattern="\d*"
-                        onInput={(e) => {
-                          e.target.value = e.target.value.replace(
-                            /[^0-9]/g,
-                            ""
-                          );
-                        }}
-                      />
-                    </div>
-                    {/* HeadNotes */}
-                    <div className="flex flex-col gap-4 bg-gray200 rounded-xl px-3 py-2">
-                      {/* Difficulty */}
-                      <div className="flex sm:flex-row flex-col md:gap-4 gap-1 md:items-center items-start">
-                        <div className="flex items-center gap-4">
-                          <img
-                            width="20"
-                            height="20"
-                            src="https://img.icons8.com/ios-glyphs/30/607917/tasks--v1.png"
-                            alt="tasks--v1"
-                          />
-                          <label className="text-sm">Difficulty:</label>
-                        </div>
-                        <div className="flex flex-wrap gap-2 sm:ml-0 ml-8">
-                          <p
-                            className={`text-xs py-1 px-2 ${
-                              difficulty === "" || difficulty === "Easy"
-                                ? "bg-green200"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() =>
-                              setDifficulty(difficulty === "Easy" ? "" : "Easy")
-                            }
-                          >
-                            Easy
-                          </p>
-                          <p
-                            className={`text-xs py-1 px-2 ${
-                              difficulty === "" || difficulty === "Medium"
-                                ? "bg-yellow"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() =>
-                              setDifficulty(
-                                difficulty === "Medium" ? "" : "Medium"
-                              )
-                            }
-                          >
-                            Medium
-                          </p>
-                          <p
-                            className={`text-xs py-1 px-2 ${
-                              difficulty === "" || difficulty === "Hard"
-                                ? "bg-red"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() =>
-                              setDifficulty(difficulty === "Hard" ? "" : "Hard")
-                            }
-                          >
-                            Hard
-                          </p>
-                        </div>
-                      </div>
-                      {/* Meal Type */}
-                      <div className="flex sm:flex-row flex-col md:gap-4 gap-1 md:items-center items-start">
-                        <div className="flex items-center gap-4">
-                          <img
-                            width="24"
-                            height="24"
-                            src="https://img.icons8.com/ios-glyphs/30/607917/meal.png"
-                            alt="meal"
-                          />
-                          <label className="text-sm">Meal:</label>
-                        </div>
-                        <div className="flex flex-wrap gap-2 sm:ml-0 ml-8">
-                          <p
-                            className={`text-xs px-2 py-1 ${
-                              mealType === "" || mealType === "Breakfast"
-                                ? "bg-green"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() => toggleMealType("Breakfast")}
-                          >
-                            Breakfast
-                          </p>
-                          <p
-                            className={`text-xs px-2 py-1 ${
-                              mealType.length === 0 ||
-                              mealType.includes("Lunch")
-                                ? "bg-green"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() => toggleMealType("Lunch")}
-                          >
-                            Lunch
-                          </p>
-                          <p
-                            className={`text-xs px-2 py-1 ${
-                              mealType === "" || mealType === "Merienda"
-                                ? "bg-green"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() => toggleMealType("Merienda")}
-                          >
-                            Merienda
-                          </p>
-                          <p
-                            className={`text-xs px-2 py-1 ${
-                              mealType.length === 0 ||
-                              mealType.includes("Dinner")
-                                ? "bg-green"
-                                : "bg-gray opacity-40"
-                            } rounded-lg hover:cursor-pointer bg-opacity-50`}
-                            onClick={() => toggleMealType("Dinner")}
-                          >
-                            Dinner
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Total Time */}
-                    <div className="flex flex-col bg-gray200 rounded-xl px-3 py-2">
-                      <div className="flex items-center gap-4 mb-2">
-                        <img
-                          width="20"
-                          height="20"
-                          src="https://img.icons8.com/ios-glyphs/30/607917/delivery-time.png"
-                          alt="delivery-time"
-                        />
-                        <div className="flex items-center gap-2">
-                          <label className="text-sm">Total Time:</label>
-                          <p className="text-sm font-bold">{totalTime}</p>
-                          <p className="text-xs">{totalUnit}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4 ml-9">
-                        <label className="text-sm">Preparation:</label>
-                        <input
-                          type="number"
-                          placeholder="30"
-                          className={`${inputStyle} text-gray`}
-                          pattern="\d*"
-                          ref={prepInputRef}
-                          onInput={(e) => {
-                            e.target.value = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                          }}
-                          onChange={(e) =>
-                            handleInputChange(
-                              e,
-                              setPrepTime,
-                              setPrepUnit,
-                              prepInputRef
+                        <RecipeHeadNotes
+                          amount={
+                            totalTime >= 60 ? (
+                              <>
+                                {totalTime / 60}
+                                <span
+                                  style={{
+                                    fontSize: "0.5em",
+                                    fontWeight: "lighter",
+                                  }}
+                                >
+                                  {" "}
+                                  hrs
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                {totalTime.toFixed(2)}
+                                <span
+                                  style={{
+                                    fontSize: "0.5em",
+                                    fontWeight: "lighter",
+                                  }}
+                                >
+                                  {" "}
+                                  mins
+                                </span>
+                              </>
                             )
                           }
+                          name={"Time"}
+                          inCreate={true}
                         />
-                        <p className="text-xs">{prepUnit}.</p>
-                      </div>
-                      <div className="flex items-center gap-4 ml-9">
-                        <label className="text-sm">Cooking:</label>
-                        <input
-                          type="number"
-                          placeholder="30"
-                          className={`${inputStyle} text-gray`}
-                          pattern="\d*"
-                          ref={cookInputRef}
-                          onInput={(e) => {
-                            e.target.value = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                          }}
-                          onChange={(e) =>
-                            handleInputChange(
-                              e,
-                              setCookTime,
-                              setCookUnit,
-                              cookInputRef
-                            )
-                          }
-                        />
-                        <p className="text-xs">{cookUnit}.</p>
                       </div>
                     </div>
+                    <img
+                      className="absolute right-[-15rem] top-0 w-full h-full object-cover object-left"
+                      src="images/side-element.png"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
