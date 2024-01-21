@@ -7,10 +7,16 @@ export default function CreateRecipe({ showModal, setShowModal }) {
     { id: 1, placeholder: "1/4 cup of dorans sword" },
     { id: 2, placeholder: "1 cup of vandal" },
   ]);
+  const [ingredientInputs, setIngredientInputs] = useState(
+    ingredients.map(() => "")
+  );
   const [directions, setDirections] = useState([
     { id: 1, placeholder: "Step 1" },
     { id: 2, placeholder: "Step 2" },
   ]);
+  const [directionInputs, setDirectionInputs] = useState(
+    directions.map(() => "")
+  );
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [mealType, setMealType] = useState("");
@@ -20,6 +26,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
   const [cookUnit, setCookUnit] = useState("mins");
   const [totalTime, setTotalTime] = useState(0);
   const [totalUnit, setTotalUnit] = useState("mins");
+  const [calories, setCalories] = useState(0);
+  const [serving, setServing] = useState(0);
   const prepInputRef = useRef();
   const cookInputRef = useRef();
 
@@ -141,16 +149,32 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                 <div className="flex xl:flex-row flex-col xl:justify-between">
                   {/* Left Content */}
                   <div className="xl:w-2/3 w-full">
-                    <h1 className="text-3xl font-light">Create</h1>
-                    <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
-                      Recipe
-                    </h2>
-                    <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
-                      Craft your culinary masterpiece effortlessly by adding
-                      your favorite ingredients, step-by-step instructions, and
-                      share the joy of your unique recipe creation with our
-                      community.
-                    </p>
+                    <div className="flex">
+                      <div>
+                        <h1 className="text-3xl font-light">Create</h1>
+                        <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
+                          Recipe
+                        </h2>
+                        <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
+                          Craft your culinary masterpiece effortlessly by adding
+                          your favorite ingredients, step-by-step instructions,
+                          and share the joy of your unique recipe creation with
+                          our community.
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-center h-full">
+                        <div className="flex justify-center items-center hover:cursor-pointer h-5/6 w-full bg-gray200 bg-opacity-50 rounded-t-3xl px-10 py-6">
+                          <img
+                            className="lg:h-14 lg:w-14 h-10 w-10"
+                            src={"images/add.png"}
+                            alt="plus"
+                          />
+                        </div>
+                        <h1 className="text-green md:text-sm sm:text-lg text-md h-1/6 flex items-center">
+                          Add Recipe
+                        </h1>
+                      </div>
+                    </div>
                     <div className="flex flex-wrap gap-4">
                       {/* Input forms */}
                       <form onSubmit={handleCreate}>
@@ -197,7 +221,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                                 Ingredients:
                               </label>
                             </div>
-                            {ingredients.map((ingredient) => (
+                            {ingredients.map((ingredient, index) => (
                               <div
                                 className="relative my-1"
                                 key={ingredient.id}
@@ -206,6 +230,12 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                                   type="text"
                                   placeholder={ingredient.placeholder}
                                   className={`${inputStyle} w-full`}
+                                  value={ingredientInputs[index]}
+                                  onChange={(e) => {
+                                    const newInputs = [...ingredientInputs];
+                                    newInputs[index] = e.target.value;
+                                    setIngredientInputs(newInputs);
+                                  }}
                                 />
                                 {ingredient.id > 2 && (
                                   <img
@@ -237,12 +267,18 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                               />
                               <label className="text-sm ">Directions:</label>
                             </div>
-                            {directions.map((direction) => (
+                            {directions.map((direction, index) => (
                               <div className="relative my-1" key={direction.id}>
                                 <input
                                   type="text"
                                   placeholder={direction.placeholder}
                                   className={`${inputStyle} w-full`}
+                                  value={directionInputs[index]}
+                                  onChange={(e) => {
+                                    const newInputs = [...directionInputs];
+                                    newInputs[index] = e.target.value;
+                                    setDirectionInputs(newInputs);
+                                  }}
                                 />
                                 {direction.id > 2 && (
                                   <img
@@ -290,6 +326,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                                 ""
                               );
                             }}
+                            value={calories}
+                            onChange={(e) => setCalories(e.target.value)}
                           />
                         </div>
                         {/* Serving */}
@@ -314,6 +352,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                                 ""
                               );
                             }}
+                            value={serving}
+                            onChange={(e) => setServing(e.target.value)}
                           />
                         </div>
                         {/* HeadNotes */}
@@ -526,12 +566,12 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                       <h3>{mealType || "Meal Type"}</h3>
                       <div className="flex flex-wrap w-2/3 gap-2 mt-2">
                         <RecipeHeadNotes
-                          amount={"100"}
+                          amount={calories || "100"}
                           name={"Calories"}
                           inCreate={true}
                         />
                         <RecipeHeadNotes
-                          amount={"2"}
+                          amount={serving || "2"}
                           name={"Servings"}
                           inCreate={true}
                         />
@@ -571,9 +611,37 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                           inCreate={true}
                         />
                       </div>
+                      <>
+                        <h1 className="text-xl font-medium mt-10">
+                          Ingredients:
+                        </h1>
+                        <ul>
+                          {ingredientInputs.map((ingredient, index) => (
+                            <div className="flex gap-3 ml-4" key={index}>
+                              <p className="text-yellow font-bold">&#8226;</p>
+                              <li className="text-[14px]">{ingredient}</li>
+                            </div>
+                          ))}
+                        </ul>
+                      </>
+                      <>
+                        <h1 className="text-xl font-medium mt-10">
+                          Directions:
+                        </h1>
+                        <ul>
+                          {directionInputs.map((direction, index) => (
+                            <div className="flex gap-3 ml-4" key={index}>
+                              {" "}
+                              <li className="text-[14px]">
+                                {`Step ${index + 1}: ${direction}`}
+                              </li>
+                            </div>
+                          ))}
+                        </ul>
+                      </>
                     </div>
                     <img
-                      className="absolute right-[-15rem] top-0 w-full h-full object-cover object-left"
+                      className="absolute right-[-25rem] top-0 w-full h-full object-cover object-left"
                       src="images/side-element.png"
                       alt=""
                     />
