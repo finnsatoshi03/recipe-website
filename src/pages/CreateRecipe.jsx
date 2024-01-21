@@ -40,10 +40,6 @@ export default function CreateRecipe({ showModal, setShowModal }) {
     e.stopPropagation();
   }, []);
 
-  const handleCreate = () => {
-    //
-  };
-
   const inputStyle = "bg-gray200 outline-none text-sm md:w-[16.5rem] w-1/3";
 
   useEffect(() => {
@@ -135,6 +131,24 @@ export default function CreateRecipe({ showModal, setShowModal }) {
     reader.readAsDataURL(file);
   };
 
+  const handleCreate = () => {
+    // dito nto connect sa backend
+    console.log({
+      image,
+      title,
+      calories,
+      serving,
+      mealType,
+      prepTime,
+      cookTime,
+      difficulty,
+      ingredients: ingredientInputs,
+      directions: directionInputs,
+    });
+
+    setShowModal(false);
+  };
+
   return (
     <>
       {showModal && (
@@ -145,7 +159,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
           <div className="modal bg-black bg-opacity-50 w-full h-full absolute flex items-center justify-center">
             {/* Modal Content */}
             <div
-              className="h-[90%] w-[90%] bg-white200 rounded-3xl transition-all duration-500 relative overflow-y-auto overflow-x-hidden"
+              className="modal-create h-[90%] w-[90%] bg-white200 rounded-3xl transition-all duration-500 relative overflow-y-auto overflow-x-hidden"
               onClick={stopPropagation}
             >
               {/* Back */}
@@ -563,10 +577,16 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                           </div>
                         </div>
                         <div className="mt-10 flex justify-end gap-2">
-                          <button className="text-xs px-3 py-1 border-red border-[1px] rounded-full text-red">
+                          <button
+                            className="text-xs px-3 py-1 border-red border-[1px] rounded-full text-red"
+                            onClick={() => setShowModal(false)}
+                          >
                             Cancel
                           </button>
-                          <button className="text-xs px-3 py-1 bg-green text-white200 rounded-full ">
+                          <button
+                            className="text-xs px-3 py-1 bg-green text-white200 rounded-full"
+                            onClick={() => handleCreate()}
+                          >
                             Create Recipe
                           </button>
                         </div>
@@ -574,7 +594,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                     </div>
                   </div>
                   {/* Right Content */}
-                  <div className="hidden xl:block absolute right-0 top-0 h-full w-1/3 bg-gray200 rounded-3xl">
+                  <div className="hidden xl:block fixed right-0 top-0 h-full w-1/3 bg-gray200 rounded-l-3xl">
                     <div className="mx-28 my-20">
                       <div
                         className={`inline-flex py-1 px-2 rounded-lg bg-opacity-50 ${

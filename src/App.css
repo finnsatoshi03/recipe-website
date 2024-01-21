@@ -72,3 +72,12 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.modal-create::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-create {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
