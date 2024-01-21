@@ -78,10 +78,10 @@ export default function Recipes({ isLogin = true }) {
     }
   }, [recipes])
   const fetchRecipes = async () => {
-    const data = await RecipeServices.viewAllRecipe();
+    // const data = await RecipeServices.viewAllRecipe();
     // console.log(data.recipe);
 
-    setRecipes(data.recipe);
+    setRecipes(CardsData);
   };
 
   const debounce = _.debounce(fetchRecipes, 5000);

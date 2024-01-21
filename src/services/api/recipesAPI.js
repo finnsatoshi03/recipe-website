@@ -15,6 +15,10 @@ export const RecipeAPI = {
         const { data } = response
         return data;
     }, 
-    
+    createNewRecipe: async (endpoint, recipeData) => {
+        const response = await axios.post(`${API_BASE_URL}${endpoint}`, recipeData, {withCredentials: true});
+        const { data } = response
+        return data;
+    },
 }
 
