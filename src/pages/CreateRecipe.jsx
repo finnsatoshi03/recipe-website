@@ -443,7 +443,9 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                             <div className="flex items-center gap-2">
                               <label className="text-sm">Total Time:</label>
                               <p className="text-sm font-bold">
-                                {totalTime.toFixed(2)}
+                                {totalTime % 1 === 0
+                                  ? totalTime
+                                  : totalTime.toFixed(2)}
                               </p>
                               <p className="text-xs">{totalUnit}</p>
                             </div>
@@ -522,7 +524,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                         {title || "Sample Title"}
                       </h2>
                       <h3>{mealType || "Meal Type"}</h3>
-                      <div className="flex flex-wrap w-2/3 gap-2">
+                      <div className="flex flex-wrap w-2/3 gap-2 mt-2">
                         <RecipeHeadNotes
                           amount={"100"}
                           name={"Calories"}
@@ -550,7 +552,9 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                               </>
                             ) : (
                               <>
-                                {totalTime.toFixed(2)}
+                                {totalTime % 1 === 0
+                                  ? totalTime
+                                  : totalTime.toFixed(2)}
                                 <span
                                   style={{
                                     fontSize: "0.5em",
