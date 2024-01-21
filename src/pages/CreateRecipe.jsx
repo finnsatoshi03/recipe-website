@@ -491,6 +491,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                             </div>
                           </div>
                         </div>
+
                         {/* Total Time */}
                         <div className="flex flex-col bg-gray200 rounded-xl px-3 py-2">
                           <div className="flex items-center gap-4 mb-2">
@@ -560,6 +561,14 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                             />
                             <p className="text-xs">{cookUnit}.</p>
                           </div>
+                        </div>
+                        <div className="mt-10 flex justify-end gap-2">
+                          <button className="text-xs px-3 py-1 border-red border-[1px] rounded-full text-red">
+                            Cancel
+                          </button>
+                          <button className="text-xs px-3 py-1 bg-green text-white200 rounded-full ">
+                            Create Recipe
+                          </button>
                         </div>
                       </div>
                     </div>
