@@ -45,96 +45,209 @@ const ContactUs = () => {
     fontSize: "12px",
   };
 
+  const icons = {
+    Github: (
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/ios-glyphs/30/github.png"
+        alt="github"
+      />
+    ),
+    Facebook: (
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
+        alt="facebook-new"
+      />
+    ),
+    LinkedIn: (
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/ios-filled/50/linkedin.png"
+        alt="linkedin"
+      />
+    ),
+    Twitter: (
+      <img
+        width="24"
+        height="24"
+        src="https://img.icons8.com/ios-filled/50/twitterx--v1.png"
+        alt="twitterx--v1"
+      />
+    ),
+  };
+
+  const description = {
+    Github:
+      "Explore our projects and contributions on GitHub, where we spaghetti codes.",
+    Facebook:
+      "Stay connected and updated with us on Facebook, you can message us here.",
+    Twitter:
+      "Follow us on Twitter for real-time thoughts, insights, and engaging discussions.",
+    LinkedIn:
+      "Discover our professional achievements and network with us on LinkedIn.",
+  };
+
   const mockProfiles = [
     {
-      name: "Mark Nelson Mamerto",
-      image: "https://via.placeholder.com/150",
-      credentials: "BSCS-NS-3AB",
-      history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      contacts: [
-        { type: "Facebook", link: "https://www.facebook.com/FabulousEggPie/" },
-        { type: "Email", link: "marknelson.mamerto@tup.edu.ph" },
-        { type: "Twitter", link: "https://twitter.com/m3rk" },
-      ],
-    },
-    {
       name: "Ashley Pontay",
-      image: "https://via.placeholder.com/150",
-      credentials: "BSCS-NS-3AB",
+      image: "images/profiles/ashley.jpg",
+      credentials: "Single ❤️",
+      currentWork: "Nurse (Hanap)",
       history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       contacts: [
-        { type: "Facebook", link: "https://www.facebook.com/AshleyPontay" },
-        { type: "Email", link: "mailto:ashley.pontay@example.com" },
+        {
+          type: "Github",
+          link: "https://github.com/sirpontay?fbclid=IwAR2J7kziCdn_TrGI9Uc4m4fG4lr-37SaT4OcAMdTB-3HjUX_VqC9xNm-EXM",
+        },
+        { type: "LinkedIn", link: "https://www.linkedin.com/in/sirpontay/" },
+        {
+          type: "Twitter",
+          link: "https://twitter.com/sirpontay?fbclid=IwAR2rhWqxecu23hzMRcnj-nVd6B4ajr3kjBuIcqwkifKXotHHzXSnGn8v9rA",
+        },
         // Add more contacts as needed
       ],
     },
     {
-        name: "Manuel Marin",
-        image: "https://via.placeholder.com/150",
-        credentials: "BSCS-NS-3AB",
-        history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        contacts: [
-          { type: "Facebook", link: "https://www.facebook.com/ManuelMarine" },
-          { type: "Email", link: "mailto:ashley.pontay@example.com" },
-          // Add more contacts as needed
-        ],
-      }, 
-      {
-        name: "Ezekiel Billona",
-        image: "https://via.placeholder.com/150",
-        credentials: "BSCS-NS-3AB",
-        history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        contacts: [
-          { type: "Facebook", link: "https://www.facebook.com/e.billona?mibextid=LQQJ4d"},
-          { type: "Email", link: "mailto:ashley.pontay@example.com" },
-          // Add more contacts as needed
-        ],
-      }, 
-      {
-        name: "Jerry boy Tejada",
-        image: "https://via.placeholder.com/150",
-        credentials: "BSCS-NS-3AB",
-        history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        contacts: [
-          { type: "Facebook", link: "https://www.facebook.com/JerryboyTejada" },
-          { type: "Email", link: "mailto:ashley.pontay@example.com" },
-          // Add more contacts as needed
-        ],
-      },    
+      name: "Manuel Marin",
+      image: "images/profiles/manuel.jpg",
+      credentials: "BSCS-NS-3AB",
+      currentWork: "MotoVlogger",
+      history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      contacts: [
+        { type: "Github", link: "https://mnuel1.github.io/portfolio/" },
+        { type: "Facebook", link: "https://www.facebook.com/ManuelMarine" },
+        // Add more contacts as needed
+      ],
+    },
+    {
+      name: "Mark Nelson Mamerto",
+      image: "images/profiles/mark.jpg",
+      credentials: "BSCS-NS-3AB",
+      currentWork: "Palamunin",
+      history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      contacts: [
+        { type: "Github", link: "https://github.com/finnsatoshi03" },
+        { type: "Facebook", link: "https://www.facebook.com/FabulousEggPie/" },
+      ],
+    },
+    {
+      name: "Ezekiel Billona",
+      image: "images/profiles/ezekiel.jpg",
+      credentials: "BSCS-NS-3AB",
+      currentWork: "Crumperist",
+      history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      contacts: [
+        {
+          type: "Facebook",
+          link: "https://www.facebook.com/e.billona?mibextid=LQQJ4d",
+        },
+        { type: "Github", link: "https://github.com/Ezekiele2" },
+        // Add more contacts as needed
+      ],
+    },
+    {
+      name: "Jerry boy Tejada",
+      image: "images/profiles/jerry.jpg",
+      credentials: "BSCS-NS-3AB",
+      currentWork: "Self Employed 😉",
+      history: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      contacts: [
+        { type: "Github", link: "https://github.com/jeeybii" },
+        {
+          type: "LinkedIn",
+          link: "https://www.linkedin.com/in/jerry-boy-tejada-87a421283?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+        },
+        { type: "Facebook", link: "https://www.facebook.com/JerryboyTejada" },
+        // Add more contacts as needed
+      ],
+    },
     // Add more profiles with unique contacts
+  ];
+  const images = [
+    "background-2.jpg",
+    "background-3.jpg",
+    "background-1.jpg",
+    "background-4.jpg",
+    "background-5.jpg",
   ];
 
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle} className="container m-auto mt-10">
       {mockProfiles.map((profile, index) => (
         <div key={index}>
-          <div style={{ flex: 1, flexDirection: "column", justifyContent: "center", height: "340px", backgroundColor: "#f3f3f5", margin: "auto" }}>
-            <div style={{ width: "200px", height: "310px", backgroundColor: "#607917", borderRadius: "10px", marginTop: "20px", marginLeft: "20px", marginBottom: "20px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <div style={{ height: "250px", width: "1300px", marginLeft: "20px", backgroundColor: "#d9dcdc", borderRadius: "20px", position: "relative" }}>
-                <div style={{ height: "110px", width: "100%", backgroundColor: "#252525", borderTopLeftRadius: "20px", borderTopRightRadius: "20px", marginBottom: "20px" }}></div>
-                <div style={{ position: "absolute", top: "40%", left: "6%", transform: "translate(-50%, -50%)" }}>
-                  <div style={{ width: "90px", height: "90px", borderRadius: "50%", backgroundColor: "#d9dcdc", backgroundImage: `url(${profile.image})`, backgroundSize: "cover", backgroundPosition: "center" }}></div>
+          <div
+            className="w-full h-[24rem] bg-opacity-50 rounded-3xl mb-10 relative"
+            style={{ backgroundColor: "#c0c0c2" }}
+          >
+            <div className="">
+              <img
+                src={`images/${images[index % images.length]}`}
+                className="w-full h-28 bg-green absolute rounded-t-3xl object-cover"
+              />
+              <div className="z-10 absolute">
+                <div
+                  className="w-[120px] h-[120px] bg-white200 rounded-full top-12 left-10 absolute  border-opacity-50 border-4"
+                  style={{ borderColor: "#c0c0c2" }}
+                >
+                  <img
+                    src={profile.image}
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
-                <div style={{ display: "flex", flexDirection: "row" }}>
-                  <div style={{ flex: 1, flexDirection: "column", justifyContent: "center", marginTop: "15px", paddingLeft: "20px", backgroundColor: "#d9dcdc", borderBottomLeftRadius: "20px" }}>
-                    <p>{profile.name}</p>
-                    <p>{profile.credentials}</p>
-                    <button onClick={() => openModal(profile)} style={buttonStyle}>
-                      Message
-                    </button>
+              </div>
+              <div className="z-10 flex justify-between w-full absolute top-[7.7rem] pr-5 items-center">
+                <div className="relative left-[11rem]">
+                  <h1 className="text-black font-bold text-xl leading-5 sm:w-full w-5/6">
+                    {profile.name}
+                  </h1>
+                  <p className="text-sm opacity-60 ">{profile.credentials}</p>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1 justify-end">
+                    <h2 className="text-xs opacity-60">Current Role</h2>
+                    <img
+                      width="15"
+                      height="15"
+                      src="https://img.icons8.com/material-outlined/24/lawyer.png"
+                      alt="lawyer"
+                    />
                   </div>
-                  <div style={{ flex: 1, width: "100px", height: "100px", marginTop: "20px", textAlign: "right", paddingRight: "20px" }}>
-                    <p>Contacts (Icon)</p>
-                    {profile.contacts.map((contact, contactIndex) => (
-                      <div key={contactIndex}>
-                        <a href={contact.link} style={{ color: "black", textDecoration: "none", marginBottom: "5px" }}>
+                  <p className="text-xs font-semibold px-2 py-1 mt-1 rounded-full bg-black bg-opacity-20">
+                    {profile.currentWork}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 w-full h-full absolute left-10 top-[14rem]">
+                {profile.contacts.map((contact, index) => (
+                  <div
+                    key={index}
+                    className="h-1/3 w-1/4 bg-green bg-opacity-20 rounded-xl py-3 px-5"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div>{icons[contact.type]}</div>
+                        <h1 className="text-md font-semibold">
                           {contact.type}
-                        </a>
-                        <br />
+                        </h1>
                       </div>
-                    ))}
+                      <div className="flex lg:justify-between justify-center items-center">
+                        <p className="text-xs w-2/3 hidden lg:block">
+                          {description[contact.type]}
+                        </p>
+                        <img
+                          className="lg:w-8 lg:h-8 w-12 h-12 hover:cursor-pointer"
+                          src="https://img.icons8.com/ios/50/circled-chevron-right--v1.png"
+                          alt="circled-chevron-right--v1"
+                          onClick={() => window.open(contact.link, "_blank")}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -169,8 +282,18 @@ const ContactUs = () => {
             <>
               <h2>{selectedProfile.name}'s Profile</h2>
               <br />
-              <div style={{display: "flex", alignItems: "center", justifyContent: "center",}}>
-              <img src={selectedProfile.image} alt={selectedProfile.name} style={{ width: "50%", height: "auto", borderRadius: "50%"}} /> 
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src={selectedProfile.image}
+                  alt={selectedProfile.name}
+                  style={{ width: "50%", height: "auto", borderRadius: "50%" }}
+                />
               </div>
               <br />
               <p>{selectedProfile.credentials}</p>
