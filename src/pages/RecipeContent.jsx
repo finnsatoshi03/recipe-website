@@ -132,7 +132,7 @@ export default function RecipeContent({
                     amount={
                       props.totalTime >= 60 ? (
                         <>
-                          {props.totalTime / 60}
+                          {Math.floor(props.totalTime / 60)} 
                           <span
                             style={{ fontSize: "0.5em", fontWeight: "lighter" }}
                           >
@@ -185,13 +185,13 @@ export default function RecipeContent({
                 {modalSize >= 85 && (
                   <>
                     <h1 className="text-xl font-medium mt-10">Directions:</h1>
-                    <ul>
+                    <ul className="max-w-md">
                       {props.directions &&
                         props.directions.map((direction, index) => (
                           <div className="flex gap-3 ml-4" key={index}>
                             {" "}
                             <li className="text-[14px]">
-                              {`Step ${index + 1}: ${direction}`}
+                              {`${direction}`}
                             </li>
                           </div>
                         ))}

@@ -78,7 +78,7 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
                   </p>
                   <p className="text-green">•</p>
                   <p className="text-xs text-black">
-                    {props.servings}
+                    {props.serving}
                     {" persons"}
                   </p>
                 </div>

@@ -10,10 +10,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { useMediaQuery } from "react-responsive";
 import _ from "lodash";
 import { RecipeServices } from "../services/recipes";
+import CustomSpinner from "../components/customspinner/Spinner";
 
 const FilterCardsData = [
   {
-    images: "images/filipino-food.png",
+    images: "images/tapsilog.png",
     name: "Filipino Foods | All",
     category: "All",
   },
@@ -30,7 +31,7 @@ const FilterCardsData = [
   {
     images: "images/bilo-bilo.png",
     name: "Bilo-bilo | Merienda",
-    category: "Merienda",
+    category: "Meryenda",
   },
   {
     images: "images/pork-bistek.png",
@@ -39,59 +40,16 @@ const FilterCardsData = [
   },
 ];
 
-const FiltersData = [
+const FiltersData = [  
   {
     filter: "Calories",
   },
   {
     filter: "Difficulty",
   },
+  
 ];
 
-const CardsData = [
-  {
-    image: "images/champurado.png",
-    name: "Champurado",
-    calories: 300,
-    serving: 1,
-    meal: "Breakfast",
-    difficulty: "Medium",
-    ingredients: [],
-    directions: [],
-  },
-  {
-    image: "images/tapsilog.png",
-    name: "Tapsilog",
-    calories: 500,
-    serving: 1,
-    meal: "Breakfast",
-    difficulty: "Medium",
-  },
-  {
-    image: "images/sinigang.png",
-    name: "Sinigang",
-    calories: 400,
-    serving: 1,
-    meal: "Lunch",
-    difficulty: "Medium",
-  },
-  {
-    image: "images/bilo-bilo.png",
-    name: "Bilo-bilo",
-    calories: 200,
-    serving: 1,
-    meal: "Merienda",
-    difficulty: "Hard",
-  },
-  {
-    image: "images/pork-bistek.png",
-    name: "Pork Bistek",
-    calories: 600,
-    serving: 1,
-    meal: "Dinner",
-    difficulty: "Easy",
-  },
-];
 
 const difficultyToInt = (difficulty) => {
   switch (difficulty) {
@@ -113,7 +71,12 @@ export default function Recipes({ isLogin = true }) {
   const [searchInput, setSearchInput] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [recipes, setRecipes] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  useEffect( () => {
+    if (recipes && (Array.isArray(recipes) ? recipes.length > 0 : Object.keys(recipes).length > 0)) {
+      setLoading(false);
+    }
+  }, [recipes])
   const fetchRecipes = async () => {
     const data = await RecipeServices.viewAllRecipe();
     // console.log(data.recipe);
@@ -121,7 +84,7 @@ export default function Recipes({ isLogin = true }) {
     setRecipes(data.recipe);
   };
 
-  const debounce = _.debounce(fetchRecipes, 500);
+  const debounce = _.debounce(fetchRecipes, 5000);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -220,7 +183,7 @@ export default function Recipes({ isLogin = true }) {
             </div>
           ))}
         </Slider>
-      </div>
+      </div>    
       {/* Header Filter */}
       <div className="flex items-center w-1/2 justify-between">
         <div className="flex">
@@ -249,10 +212,12 @@ export default function Recipes({ isLogin = true }) {
           alt="generic-sorting"
           onClick={handleSortClick}
         />
-      </div>
+      </div>      
       {/* Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">
-        {isLogin && <Cards isCreate={true} />}
+        {loading && <CustomSpinner msg={'Fetching recipes. Please wait🍞'}/>}
+        {!loading && isLogin && <Cards isCreate={true} />}
+        
         {recipes
           .filter(
             (card) =>
