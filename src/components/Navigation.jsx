@@ -21,7 +21,7 @@ export default function Navigation(props) {
   const handleLogoutClick = (e) => {
     e.preventDefault();
     const activeUserId = getLoggedInUserId();
-    
+
     userLogout(activeUserId)
       .then((res) => {
         if (res.status === 200) {
@@ -34,7 +34,6 @@ export default function Navigation(props) {
         console.error("Logout error:", err);
       });
   };
-  
 
   const handleSignUpClose = () => {
     setIsSignUpOpen(false);
@@ -62,7 +61,7 @@ export default function Navigation(props) {
           <Link to="/">
             <img className="w-16" src="images/logo.png" alt="Tito Zah's Logo" />
           </Link>
-          <a href="#">Contact</a>
+          <Link to="/contact-us">Contact Us</Link>
         </div>
         {activeUser ? (
           <div
