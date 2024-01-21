@@ -176,7 +176,7 @@ const ContactUs = () => {
   ];
 
   return (
-    <div style={containerStyle} className="container m-auto mt-10">
+    <div style={containerStyle} className="container sm:m-auto mt-10">
       {mockProfiles.map((profile, index) => (
         <div key={index}>
           <div
