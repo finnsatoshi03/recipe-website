@@ -18,6 +18,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
     directions.map(() => "")
   );
   const [title, setTitle] = useState("");
+  const [image, setImage] = useState(null);
   const [difficulty, setDifficulty] = useState("");
   const [mealType, setMealType] = useState("");
   const [prepTime, setPrepTime] = useState(0);
@@ -26,8 +27,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
   const [cookUnit, setCookUnit] = useState("mins");
   const [totalTime, setTotalTime] = useState(0);
   const [totalUnit, setTotalUnit] = useState("mins");
-  const [calories, setCalories] = useState(0);
-  const [serving, setServing] = useState(0);
+  const [calories, setCalories] = useState("");
+  const [serving, setServing] = useState("");
   const prepInputRef = useRef();
   const cookInputRef = useRef();
 
@@ -123,6 +124,17 @@ export default function CreateRecipe({ showModal, setShowModal }) {
     }
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <>
       {showModal && (
@@ -149,31 +161,17 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                 <div className="flex xl:flex-row flex-col xl:justify-between">
                   {/* Left Content */}
                   <div className="xl:w-2/3 w-full">
-                    <div className="flex">
-                      <div>
-                        <h1 className="text-3xl font-light">Create</h1>
-                        <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
-                          Recipe
-                        </h2>
-                        <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
-                          Craft your culinary masterpiece effortlessly by adding
-                          your favorite ingredients, step-by-step instructions,
-                          and share the joy of your unique recipe creation with
-                          our community.
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-center h-full">
-                        <div className="flex justify-center items-center hover:cursor-pointer h-5/6 w-full bg-gray200 bg-opacity-50 rounded-t-3xl px-10 py-6">
-                          <img
-                            className="lg:h-14 lg:w-14 h-10 w-10"
-                            src={"images/add.png"}
-                            alt="plus"
-                          />
-                        </div>
-                        <h1 className="text-green md:text-sm sm:text-lg text-md h-1/6 flex items-center">
-                          Add Recipe
-                        </h1>
-                      </div>
+                    <div>
+                      <h1 className="text-3xl font-light">Create</h1>
+                      <h2 className="text-[50px] font-serif leading-9 mb-5 text-green">
+                        Recipe
+                      </h2>
+                      <p className="text-light text-[11px] mb-10 sm:w-[24rem] w:[15rem]">
+                        Craft your culinary masterpiece effortlessly by adding
+                        your favorite ingredients, step-by-step instructions,
+                        and share the joy of your unique recipe creation with
+                        our community.
+                      </p>
                     </div>
                     <div className="flex flex-wrap gap-4">
                       {/* Input forms */}
@@ -299,6 +297,28 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                               <img className="h-4" src="images/add-alt.png" />
                               Add more
                             </button>
+                          </div>
+                          <div className="flex flex-col items-center h-[20%] xl:mr-[11rem] rounded">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleImageUpload}
+                              style={{ display: "none" }}
+                              id="imageUpload"
+                            />
+                            <label
+                              htmlFor="imageUpload"
+                              className="flex justify-center items-center hover:cursor-pointer h-5/6 w-full bg-gray200 rounded-t-xl px-10 py-6"
+                            >
+                              <img
+                                className="lg:h-14 lg:w-14 h-10 w-10"
+                                src={image || "images/add.png"}
+                                alt="plus"
+                              />
+                            </label>
+                            <h1 className="text-white200 bg-green bg-opacity-50 w-full justify-center text-sm py-1 h-1/6 flex items-center rounded-b-xl">
+                              Upload Image
+                            </h1>
                           </div>
                         </div>
                       </form>
@@ -640,6 +660,11 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                         </ul>
                       </>
                     </div>
+                    <img
+                      src={image || "images/sinigang.png"}
+                      className="absolute right-[-9rem] top-[15rem] w-[20rem] h-[20rem] z-10 object-cover rounded-full"
+                      alt=""
+                    />
                     <img
                       className="absolute right-[-25rem] top-0 w-full h-full object-cover object-left"
                       src="images/side-element.png"
