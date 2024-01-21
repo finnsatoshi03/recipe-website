@@ -2,8 +2,10 @@
 import { useState, useEffect, useRef } from "react";
 import SignUp from "./SignUp";
 import { Link } from "react-router-dom";
+import { getLoggedInUserId, userLogout } from "../services/authService";
 
 export default function Navigation(props) {
+  const { activeUser } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const navRef = useRef();
@@ -15,6 +17,24 @@ export default function Navigation(props) {
   const handleSignUpClick = () => {
     setIsSignUpOpen(true);
   };
+
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
+    const activeUserId = getLoggedInUserId();
+    
+    userLogout(activeUserId)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload();
+        } else {
+          console.error("Logout failed with status:", res.status);
+        }
+      })
+      .catch((err) => {
+        console.error("Logout error:", err);
+      });
+  };
+  
 
   const handleSignUpClose = () => {
     setIsSignUpOpen(false);
@@ -36,7 +56,7 @@ export default function Navigation(props) {
   return (
     <>
       <div className="container flex justify-between py-6 items-center font-sans text-black m-auto">
-        <p className="hidden sm:flex">{props.userStatus || "Guest"}</p>
+        <p className="hidden sm:flex">{activeUser ? activeUser : "Guest"}</p>
         <div className="items-center lg:gap-24 md:gap-12 sm:gap-6 absolute left-1/2 transform -translate-x-1/2 hidden sm:flex">
           <Link to="/recipes">Recipes</Link>
           <Link to="/">
@@ -44,20 +64,32 @@ export default function Navigation(props) {
           </Link>
           <a href="#">Contact</a>
         </div>
-        <div
-          className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray"
-          onClick={handleSignUpClick}
-        >
-          <img
-            width="28"
-            height="28"
-            src="https://img.icons8.com/doodle/48/user.png"
-            alt="user"
-          />
-          <a href="#" className="text-white200 text-xs">
-            Sign Up
-          </a>
-        </div>
+        {activeUser ? (
+          <div
+            className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray"
+            onClick={handleLogoutClick}
+          >
+            <a href="#" className="text-white200 text-xs">
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div
+            className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 hover:cursor-pointer hidden sm:flex hover:bg-gray"
+            onClick={handleSignUpClick}
+          >
+            <img
+              width="28"
+              height="28"
+              src="https://img.icons8.com/doodle/48/user.png"
+              alt="user"
+            />
+            <a href="#" className="text-white200 text-xs">
+              Sign Up
+            </a>
+          </div>
+        )}
+
         <div className="container flex justify-between items-center w-full sm:hidden">
           <Link to="/">
             <img
@@ -103,6 +135,7 @@ export default function Navigation(props) {
             Contact
           </a>
           <div className="flex justify-center m-auto mt-4 w-full h-[1px] bg-white200 mb-5 opacity-50"></div>
+
           <div
             className=" bg-black px-3.5 py-2 rounded-lg items-center gap-1 flex justify-center hover:cursor-pointer"
             onClick={handleSignUpClick}
@@ -120,7 +153,11 @@ export default function Navigation(props) {
         </div>
       )}
       {isSignUpOpen && (
-        <SignUp isOpen={isSignUpOpen} onClose={handleSignUpClose} />
+        <SignUp
+          isOpen={isSignUpOpen}
+          onClose={handleSignUpClose}
+          onLogin={props.onLogin}
+        />
       )}
     </>
   );

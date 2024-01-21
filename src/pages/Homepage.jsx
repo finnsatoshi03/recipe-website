@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Hero from "../components/Header";
 import Cards from "../components/Cards";
-
+import _ from 'lodash';
+import { RecipeServices } from "../services/recipes";
 const CardData = [
   {
     image: "images/champurado.png",
@@ -34,6 +35,18 @@ const CardData = [
 ];
 
 export default function Homepage() {
+  const [recipes, setRecipes] = useState([]);
+
+  const fetchRecipes = async () => {
+    const data = await RecipeServices.getTopPicksRecipe()
+    // console.log(data.recipe);
+   
+    setRecipes(data.recipe)
+  }
+
+  
+  const debounce = _.debounce(fetchRecipes, 500);
+  
   useEffect(() => {
     const checkOverflow = () => {
       document.body.style.overflowY =
@@ -41,6 +54,7 @@ export default function Homepage() {
     };
     checkOverflow();
     window.addEventListener("resize", checkOverflow);
+    debounce()
     return () => {
       document.body.style.overflowY = "auto";
       window.removeEventListener("resize", checkOverflow);
@@ -54,7 +68,7 @@ export default function Homepage() {
         description="Discover culinary joy at Tito Zah's Kitchen. Add, search, and enjoy recipes for breakfast, lunch, meryenda, and dinner with ease."
       />
       <div className="container flex flex-wrap justify-center gap-20 my-10 lg:justify-between md:justify-around sm:justify-around m-auto">
-        {CardData.map((card, index) => (
+        {recipes.map((card, index) => (
           <Cards
             key={index}
             image={card.image}
@@ -62,6 +76,10 @@ export default function Homepage() {
             calories={card.calories}
             servings={card.servings}
             meal={card.meal}
+            prepTime={card.prepTime}
+            cookTime={card.cookTime}
+            ingredients={card.ingredients}
+            directions={card.directions}
             isHomePage={true}
           />
         ))}

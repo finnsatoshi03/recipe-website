@@ -8,6 +8,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useMediaQuery } from "react-responsive";
+import _ from 'lodash';
+import { RecipeServices } from "../services/recipes";
 
 const FilterCardsData = [
   {
@@ -54,6 +56,8 @@ const CardsData = [
     serving: 1,
     meal: "Breakfast",
     difficulty: "Medium",
+    ingredients: [],
+    directions:[]
   },
   {
     image: "images/tapsilog.png",
@@ -108,13 +112,28 @@ export default function Recipes({ isLogin = true }) {
   const [selectedSort, setSelectedSort] = useState("ascend");
   const [searchInput, setSearchInput] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [recipes, setRecipes] = useState([]);
 
+  const fetchRecipes = async () => {
+    const data = await RecipeServices.viewAllRecipe()
+    // console.log(data.recipe);
+   
+    setRecipes(data.recipe)
+  }
+
+  
+  const debounce = _.debounce(fetchRecipes, 500);
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      
+    }
     window.addEventListener("resize", handleResize);
+    debounce()
     return () => window.removeEventListener("resize", handleResize);
+    
   }, []);
-
+  
   const settings = {
     dots: false,
     infinite: false,
@@ -237,7 +256,7 @@ export default function Recipes({ isLogin = true }) {
       {/* Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">
         {isLogin && <Cards isCreate={true} />}
-        {CardsData.filter(
+        {recipes.filter(
           (card) =>
             (selectedCard === "All" || card.meal === selectedCard) &&
             (card.name.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -263,6 +282,10 @@ export default function Recipes({ isLogin = true }) {
               calories={card.calories}
               serving={card.serving}
               meal={card.meal}
+              prepTime={card.prepTime}
+              cookTime={card.cookTime}
+              ingredients={card.ingredients}
+              directions={card.directions}
             />
           ))}
       </div>
