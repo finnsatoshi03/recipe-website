@@ -2,7 +2,7 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import RecipeHeadNotes from "../components/RecipeHeadNotes";
 
-export default function RecipeContent({
+export default function   RecipeContent({
   showModal,
   setShowModal,
   isHomePage,

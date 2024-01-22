@@ -137,11 +137,10 @@ export default function CreateRecipe({ showModal, setShowModal }) {
   };
 
   const handleCreate = () => {
-    // dito nto connect sa backend
-  
-
+    
     const id = getLoggedInUserId();
 
+    
     if (id) {
       const formData = new FormData();
 
@@ -157,14 +156,17 @@ export default function CreateRecipe({ showModal, setShowModal }) {
       formData.append("directions", directionInputs);
       formData.append("userId", id);
       formData.append("file", selectedFile);
-
-      RecipeServices.createRecipe(id, formData)
+      console.log(formData);
+      if (formData.size > 0) {
+        RecipeServices.createRecipe(id, formData)
         .then((res) => {
           console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
+      }else {handleCreate()}
+      
         
     } else {
       // HANDLE HERE IF USER IS NOT LOGGED IN
@@ -242,7 +244,9 @@ export default function CreateRecipe({ showModal, setShowModal }) {
                                 title.length >= 3 ? "bg-gray" : "bg-gray200"
                               } outline-none text-sm md:w-[15rem] w-1/2`}
                               value={title}
-                              onChange={(e) => setTitle(e.target.value)}
+                              onChange={(e) => {
+                                setTitle(e.target.value) 
+                                  console.log(e.target.value);}}
                             />
                           </div>
                           <div className="bg-gray200 px-3 py-2 rounded-xl">

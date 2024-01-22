@@ -78,10 +78,10 @@ export default function Recipes({ isLogin = true }) {
     }
   }, [recipes])
   const fetchRecipes = async () => {
-    // const data = await RecipeServices.viewAllRecipe();
+    const data = await RecipeServices.viewAllRecipe();
     // console.log(data.recipe);
 
-    setRecipes(CardsData);
+    setRecipes(data.recipe);
   };
 
   const debounce = _.debounce(fetchRecipes, 5000);
@@ -155,6 +155,9 @@ export default function Recipes({ isLogin = true }) {
   const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1536px)" });
 
   return (
+    <>
+    {loading && <CustomSpinner msg={'Be ready to dig in! 🍽️ '}/>}
+    {!loading && 
     <div className="container sm:m-auto">
       {isDesktopOrLaptop ? (
         <div className="flex justify-between items-center">
@@ -214,8 +217,7 @@ export default function Recipes({ isLogin = true }) {
         />
       </div>      
       {/* Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">
-        {loading && <CustomSpinner msg={'Fetching recipes. Please wait🍞'}/>}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-20 gap-[3rem] my-24 justify-start">        
         {!loading && isLogin && <Cards isCreate={true} />}
         
         {recipes
@@ -253,5 +255,7 @@ export default function Recipes({ isLogin = true }) {
           ))}
       </div>
     </div>
+    }
+    </>
   );
 }

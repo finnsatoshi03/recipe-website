@@ -65,7 +65,7 @@ export default function Homepage() {
           />
         ))}
                            
-        <div className=" font-sans text-xs lg:text-sm md:text-sm text-black lg:w-1/3 md:w-1/2 w-[70%] text-center mx-auto">
+        {/* <div className=" font-sans text-xs lg:text-sm md:text-sm text-black lg:w-1/3 md:w-1/2 w-[70%] text-center mx-auto">
           {currentTime >= 6 && currentTime <= 8 ? (
             <>
               <h2>Breakfast Bonanza</h2>
@@ -91,7 +91,7 @@ export default function Homepage() {
                 <p>Go diet din sometimes ante or you will be obese!</p>                
               </>
           }
-        </div>
+        </div> */}
           
         
         
