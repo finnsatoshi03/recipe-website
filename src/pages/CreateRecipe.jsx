@@ -138,7 +138,6 @@ export default function CreateRecipe({ showModal, setShowModal }) {
 
   const handleCreate = () => {
     // dito nto connect sa backend
-  
 
     const id = getLoggedInUserId();
 
@@ -146,7 +145,7 @@ export default function CreateRecipe({ showModal, setShowModal }) {
       const formData = new FormData();
 
       formData.append("image", "");
-      formData.append("title", title);
+      formData.append("name", title);
       formData.append("calories", calories);
       formData.append("serving", serving);
       formData.append("mealType", mealType);
@@ -158,6 +157,8 @@ export default function CreateRecipe({ showModal, setShowModal }) {
       formData.append("userId", id);
       formData.append("file", selectedFile);
 
+      console.log(formData);
+
       RecipeServices.createRecipe(id, formData)
         .then((res) => {
           console.log(res);
@@ -165,7 +166,6 @@ export default function CreateRecipe({ showModal, setShowModal }) {
         .catch((err) => {
           console.log(err);
         });
-        
     } else {
       // HANDLE HERE IF USER IS NOT LOGGED IN
     }

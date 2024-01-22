@@ -11,7 +11,7 @@ export default function Homepage() {
   
   const fetchRecipes = async () => {
     const data = await RecipeServices.getTopPicksRecipe();
-    
+    console.log(data.recipe)
     setRecipes(data.recipe);
   };
 
