@@ -79,7 +79,7 @@ export default function Recipes({ isLogin = true }) {
   }, [recipes])
   const fetchRecipes = async () => {
     const data = await RecipeServices.viewAllRecipe();
-    // console.log(data.recipe);
+    console.log(data.recipe);
 
     setRecipes(data.recipe);
   };
@@ -223,9 +223,9 @@ export default function Recipes({ isLogin = true }) {
         {recipes
           .filter(
             (card) =>
-              (selectedCard === "All" || card.meal === selectedCard) &&
+              (selectedCard === "All" || card.mealType === selectedCard) &&
               (card.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-                card.meal.toLowerCase().includes(searchInput.toLowerCase()))
+                card.mealType.toLowerCase().includes(searchInput.toLowerCase()))
           )
           .sort((a, b) => {
             if (selectedFilters.includes("Calories")) {
@@ -240,13 +240,14 @@ export default function Recipes({ isLogin = true }) {
             return 0;
           })
           .map((card, index) => (
+            
             <Cards
               key={index}
               image={card.image}
               name={card.name}
               calories={card.calories}
               serving={card.serving}
-              meal={card.meal}
+              meal={card.mealType}
               prepTime={card.prepTime}
               cookTime={card.cookTime}
               ingredients={card.ingredients}
