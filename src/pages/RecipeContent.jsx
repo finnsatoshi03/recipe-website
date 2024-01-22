@@ -70,7 +70,7 @@ export default function RecipeContent({
                 className={`${
                   isFullSize ? "fixed right-[-5rem]" : "absolute"
                 } xl:right-[10rem] lg:right-[7rem] md:right-[2rem] sm:right-[1rem] right-1 transition-all duration-500 w-1/3 lg:top-[15%] md:top-[25%] top-1/3 z-10`}
-                src={`${props.image}.png` || "images/sinigang.png"}
+                src={`http://localhost:4000/${props.image}` || "images/sinigang.png"}
                 alt={props.name}
               />
               <img

@@ -57,7 +57,7 @@ export default function Cards({ isHomePage, isCreate, ...props }) {
                         MozBoxShadow: "-1px 14px 30px 9px rgba(0,0,0,0.23)",
                       }
                 }
-                src={`${props.image}.png`}
+                src={`http://localhost:4000/${props.image}`}
                 alt={props.name}
               />
               <div
